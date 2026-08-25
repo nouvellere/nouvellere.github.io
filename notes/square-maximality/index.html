@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Square Maximality for Spanning Trees of Induced Grid Subgraphs</title>
+  <meta name="description" content="Proves that among induced square-lattice graphs on n² vertices, the n×n square uniquely maximizes the number of spanning trees." />
+  <link rel="canonical" href="https://uovou.me/notes/square-maximality/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Square Maximality for Spanning Trees of Induced Grid Subgraphs" />
+  <meta property="og:description" content="Proves that among induced square-lattice graphs on n² vertices, the n×n square uniquely maximizes the number of spanning trees." />
+  <meta property="og:url" content="https://uovou.me/notes/square-maximality/" />
+  <meta property="article:published_time" content="2026-08-22T07:05:46+02:00" />
+  <meta property="article:modified_time" content="2026-08-23T18:55:02+02:00" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Square Maximality for Spanning Trees of Induced Grid Subgraphs" />
+  <meta name="twitter:description" content="Proves that among induced square-lattice graphs on n² vertices, the n×n square uniquely maximizes the number of spanning trees." />
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+  <link rel="alternate icon" href="/assets/favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="/assets/styles.css" />
+  <script defer src="/assets/site.js"></script>
+  <script src="/assets/mathjax-config.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-chtml.js"></script>
+</head>
+<body id="top">
+  <div class="mondrian-bg" aria-hidden="true"></div>
+  <main class="page note-page">
+    <nav class="note-nav" aria-label="Site navigation">
+      <a href="/notes/">Notes</a>
+      <a href="/pdf/square-maximality.pdf">PDF</a>
+    </nav>
+
+    <article class="note-article">
+      <header class="note-header">
+        <h1>Square Maximality for Spanning Trees of Induced Grid Subgraphs</h1>
+        <p><time datetime="2026-08">August 2026</time></p>
+      </header>
+
+<section class="abstract" role="doc-abstract" aria-labelledby="abstract-heading">
+<h2 id="abstract-heading">Abstract</h2>
+     <p>For a finite \(S\subset \Z ^2\), let \(\tau (S)\) be the number of spanning trees of its induced square-lattice graph. For positive
+     integers \(r,s\), set \(\Lambda _{r,s}=\{0,\ldots ,r-1\}\times \{0,\ldots ,s-1\}\) and \(\tau (r,s)=\tau (\Lambda _{r,s})\). We prove that, for every \(n\ge 1\), </p><div class="math-block">\[ |S|=n^2 \quad \Longrightarrow \quad \tau (n,n)\ge \tau (S), \]</div>
+     <p>      with equality exactly for \(n\times n\) lattice squares. More precisely, suppose that \(|S|=n^2\), that its induced graph
+     is connected, and that \(\Lambda _{r,s}\) is its minimal rectangular hull after translation; then \(|\Lambda _{r,s}\setminus S|=rs-n^2\). Interchanging \(r\)
+     and \(s\) if necessary, </p><div class="math-block">\[ \log \tau (r,s)-\log \tau (S) \ \ge \
+\frac {4G_{\mathrm {Cat}}}{\pi }(rs-n^2) \ \ge \
+\log \tau (r,s)-\log \tau (n,n), \]</div>
+     <p>      where \(G_{\mathrm {Cat}}\) is Catalan’s constant. Filling in the hull is worth at least the square-lattice tree entropy
+     per vertex added, and enlarging the \(n\times n\) square to the hull at most that; the same number of vertices
+     is added in each case, so cancelling \(\log \tau (r,s)\) gives the theorem.
+</p>
+</section>
+
+<p class="note-background"><strong>Background.</strong> In 1999, Chung obtained boundary-sensitive estimates for spanning-tree counts in lattice subgraphs <span class="citation">[<a href="#ref-chu99">Chu99</a>]</span>. In 2010, Swanepoel proposed on <a href="https://mathoverflow.net/questions/8497/number-of-spanning-trees-in-a-grid">MathOverflow</a> that square shapes should maximize the count at fixed cardinality <span class="citation">[<a href="#ref-swa10">Swa10</a>]</span>. Procaccia and Tucker-Foltz recorded the conjecture in the research literature in 2022 <span class="citation">[<a href="#ref-ptf22">PTF22</a>]</span>, and Tapp established general boundary-sensitive grid-graph bounds in 2024 <span class="citation">[<a href="#ref-tap24">Tap24</a>]</span>. In 2026, Zhang proved exact balancing for free rectangular grids <span class="citation">[<a href="#ref-zha26a">Zha26a</a>]</span>, then extended the extremal result to pure Cartesian-product families with free and periodic boundary conditions and formulated the induced-subgraph conjecture in all dimensions <span class="citation">[<a href="#ref-zha26b">Zha26b</a>]</span>. The present note proves the square-maximality conjecture recorded by Procaccia and Tucker-Foltz in 2022, resolving for arbitrary finite induced subgraphs of the square lattice both the question proposed by Swanepoel in 2010 and the two-dimensional case of the induced-subgraph conjecture formulated by Zhang in 2026.</p>
+
+   <h2 id="introduction">1 Introduction</h2>
+<p>Let \(\mathcal L\) be the infinite square-lattice graph with vertex set \(\Z ^2\). Vertices \(x=(x_1,x_2)\) and \(y=(y_1,y_2)\) are adjacent when
+</p><div class="math-block">\[ |x_1-y_1|+|x_2-y_2|=1. \]</div>
+<p>   We call every finite subgraph of \(\mathcal L\) a square-lattice graph. For a finite graph \(G\), write \(V(G)\) and \(E(G)\) for its vertex
+and edge sets, and let \(\tau (G)\) denote its number of spanning trees. We set \(\tau (G)=0\) when \(G\) is disconnected and \(\tau (G)=1\)
+when \(G\) consists of a single vertex. For a finite set \(S\subset \Z ^2\), let \(\mathcal L[S]\) be the subgraph induced by \(S\), and write
+</p><div class="math-block">\[ \tau (S):=\tau (\mathcal L[S]). \]</div>
+<p>   For positive integers \(r,s\), set </p><div class="math-block">\[ \Lambda _{r,s}:=\{0,\ldots ,r-1\}\times \{0,\ldots ,s-1\}, \qquad R_{r,s}:=\mathcal L[\Lambda _{r,s}], \qquad \tau (r,s):=\tau (R_{r,s}). \]</div>
+<p>   All logarithms are natural. We use </p><div class="math-block">\[ G_{\mathrm {Cat}} := \sum _{j\ge 0}\frac {(-1)^j}{(2j+1)^2} \]</div>
+<p>   for Catalan’s constant.
+</p>
+   <div class="theorem">
+
+<p><span class="theorem-label">
+<span id="conj-square-maximality"></span>
+<strong>Conjecture 1.1 </strong>(<span class="citation">[<a href="#ref-ptf22">PTF22</a>]</span>)<strong>.</strong>  </span> <em>Let </em>\(n\ge 1\)<em>, and let </em>\(H\) <em>be a finite connected subgraph of </em>\(\mathcal L\) <em>with </em>\(|V(H)|=n^2\)<em>. Then</em> </p><div class="math-block">\[ \tau (H)\le \tau (n,n). \]</div>
+   </div>
+<p>   For a graph \(H\) in Conjecture <a href="#conj-square-maximality">1.1</a>, put \(S:=V(H)\). Adding all lattice edges with both endpoints in \(S\) produces \(\mathcal L[S]\), and
+every spanning tree of \(H\) remains a spanning tree of \(\mathcal L[S]\). Thus </p><div class="math-block">\[ H\subseteq \mathcal L[S], \qquad \tau (H)\le \tau (S), \]</div>
+<p>   so it suffices to consider induced subgraphs. If \(H\ne \mathcal L[S]\), adding a missing lattice edge strictly increases the
+spanning-tree count: adding that edge to any spanning tree of \(H\) and deleting one edge from the resulting
+cycle produces a new spanning tree containing the added edge. We prove the conjecture and characterize
+equality.
+</p>
+   <div class="theorem">
+<p><span class="theorem-label">
+<span id="thm-square-maximality"></span>
+<strong>Theorem 1.2 </strong>(Square maximality)<strong>.</strong>  </span> <em>Let </em>\(n\ge 1\)<em>, and let </em>\(S\subset \Z ^2\) <em>be finite with </em>\(|S|=n^2\)<em>. Then</em> </p><div class="math-block">\[ \tau (S)\le \tau (n,n). \]</div>
+<p>   <em>Equality holds if and only if </em>\(S\) <em>is an </em>\(n\times n\) <em>lattice square, up to translation and the symmetries of the square
+lattice.</em>
+</p>
+   </div>
+
+   <h3 id="outline-of-the-proof">1.1 Outline of the proof</h3>
+<p>Theorem <a href="#thm-square-maximality">1.2</a> follows from two finite inequalities carrying the same constant: one compares rectangles of
+different areas, the other compares a set with its rectangular hull.
+</p><ol class="note-bullets">
+<li>
+     <p><em>Rectangular area penalty </em>(<strong>Lemma </strong><a href="#lem-rectangular-penalty"><strong>3.1</strong></a>). For positive integers \(n,r,s\) with \(r\le s\) and \(rs\ge n^2\), </p><div class="math-block">\[ \log \tau (r,s)-\log \tau (n,n) \le \frac {4G_{\mathrm {Cat}}}{\pi }(rs-n^2), \]</div>
+     <p>with equality only when \(r=s=n\). The proof telescopes \(\log \tau \) in one side length, drawing on the rectangular
+     product  and  hyperbolic  formulas,  the  trapezoidal  estimate,  and  the  residual  bounds  of
+     <span class="citation">[<a href="#ref-zha26a">Zha26a</a>]</span>; the individual references are given in Section <a href="#rectangular-area-penalty">3</a>.
+     </p></li>
+<li>
+
+     <p><em>Normalized  rectangular-hull  inequality  </em>(<strong>Lemma </strong><a href="#lem-normalized-hull"><strong>4.1</strong></a>).  Let  \(S\subset \Z ^2\),  suppose  that  \(\mathcal L[S]\)  is  connected,  and
+     suppose that the smallest axis-parallel lattice vertex rectangle containing \(S\) is \(\Lambda _{r,s}\) after translation.
+     Then </p><div class="math-block">\[ \log \tau (S)-\log \tau (r,s) \le -\frac {4G_{\mathrm {Cat}}}{\pi } |\Lambda _{r,s}\setminus S|. \]</div>
+     <p>Interior   vacancy   components   are   controlled   by   planar   duality   and   Tapp’s   bound
+     (<strong>Theorem </strong><a href="#thm-tapp"><strong>2.1</strong></a>).   Boundary-attached   vacancies   are   handled   by   Lemma <a href="#lem-one-dimensional-window">5.1</a>   and   the
+     sliding-window and closed-walk arguments in Section <a href="#boundary-vacancies">5</a>.
+     </p></li>
+<li>
+     <p><em>Exact  matching  and  square  maximality  </em>(<strong>Theorem </strong><a href="#thm-square-maximality"><strong>1.2</strong></a>).  If  \(\mathcal L[S]\)  is  connected,  \(|S|=n^2\),  and  the  smallest
+     axis-parallel lattice vertex rectangle containing \(S\) is \(\Lambda _{r,s}\), then </p><div class="math-block">\[ |\Lambda _{r,s}\setminus S|=rs-n^2, \]</div>
+     <p>and the two inequalities match exactly: </p><div class="math-block">\[ \log \tau (S)-\log \tau (n,n) \le -\frac {4G_{\mathrm {Cat}}}{\pi }(rs-n^2) +\frac {4G_{\mathrm {Cat}}}{\pi }(rs-n^2) =0. \]</div>
+     <p>The strictness of the rectangular estimate forces \(r=s=n\), after which equality of cardinalities forces
+     \(S=\Lambda _{n,n}\), up to lattice symmetry.</p></li></ol>
+
+   <h3 id="related-work">1.2 Related Work</h3>
+<p>Kirchhoff’s Matrix–Tree Theorem is the classical starting point for exact spanning-tree enumeration
+<span class="citation">[<a href="#ref-kir47">Kir47</a>]</span>. Square-lattice tree entropy and product formulas have been studied extensively; we use the
+standard closed-walk evaluation recorded, for example, in <span class="citation">[<a href="#ref-sw00">SW00</a>]</span>. Tapp proved boundary-sensitive
+upper and lower bounds for arbitrary finite grid graphs <span class="citation">[<a href="#ref-tap24">Tap24</a>]</span>. The rectangular balancing
+theorem gives the sharp finite comparison within the free rectangular family <span class="citation">[<a href="#ref-zha26a">Zha26a</a>]</span>, while the
+product-grid extension studies other boundary conditions and higher-dimensional product families
+<span class="citation">[<a href="#ref-zha26b">Zha26b</a>]</span>.
+
+</p>
+<p><strong>Organization.</strong>
+   Section <a href="#preliminaries">2</a> fixes notation and records the external inputs. Section <a href="#rectangular-area-penalty">3</a> proves the rectangular estimate.
+Sections <a href="#normalized-hull">4</a> and <a href="#boundary-vacancies">5</a> prove the normalized hull inequality. Section <a href="#proof-square-maximality">6</a> completes the proof of Theorem <a href="#thm-square-maximality">1.2</a>,
+and Section <a href="#discussion">7</a> discusses the argument.
+
+</p>
+   <h2 id="preliminaries">2 Preliminaries and Notation</h2>
+<p>Empty products and \(0\times 0\) determinants are equal to one. The free-boundary constant is </p><div class="math-block">\[ \alpha :=\arsinh (1)=\log (1+\sqrt 2). \]</div>
+<p>   The square-lattice tree entropy is \(4G_{\mathrm {Cat}}/\pi \).
+</p><p>   For \(v\in \Z ^2\), let \(\Box _v\) be the unit-square graph having \(v\) as its bottom-right corner. Following <span class="citation">[<a href="#ref-tap24">Tap24</a>, Definition 6]</span>,
+the top-left boundary of a finite square-lattice graph \(H\) is </p><div class="math-block">\[ \widehat {\partial H} := \{v\in V(H):\Box _v\text { is not a subgraph of }H\}. \]</div>
+<p>   Let \(\sq (H)\) denote the number of unit lattice squares whose four boundary edges belong to \(H\). Thus
+\(\sq (H)=|V(H)|-|\widehat {\partial H}|\).
+</p>
+
+   <div class="theorem">
+<p><span class="theorem-label">
+<span id="thm-tapp"></span>
+<strong>Theorem 2.1 </strong>(<span class="citation">[<a href="#ref-tap24">Tap24</a>, Theorem 9]</span>)<strong>.</strong>  </span> <em>If </em>\(H\) <em>is a finite connected square-lattice graph, then</em> </p><div class="math-block">\[ \log \tau (H) \ge \frac {4G_{\mathrm {Cat}}}{\pi }\,\sq (H). \]</div>
+   </div>
+<p>   We also use two standard facts about spanning trees. First, if \(G\) is a connected planar multigraph, let \(G^\star \)
+denote its geometric dual, including the exterior dual vertex. Deletion of a primal edge corresponds to
+contraction of its dual edge, so the cycle matroids of \(G\) and \(G^\star \) are dual. For an edge set \(A\subseteq E(G)\), let \(G/A\) denote the
+multigraph obtained by simultaneously contracting the edges of \(A\), discarding the resulting loops and
+retaining parallel-edge multiplicities.
+</p><p>   Second, if \(T\) is a uniform spanning tree of a connected multigraph \(G\) and \(F\) is a forest, then
+</p><div class="math-block">\[ \Pr (F\subseteq T)=\frac {\tau (G/F)}{\tau (G)}. \]</div>
+<p>   The transfer-current theorem represents this probability as a principal minor of a positive semidefinite
+kernel <span class="citation">[<a href="#ref-bp93">BP93</a>]</span>. Hadamard–Fischer therefore implies that, for an integer \(d\ge 1\) and pairwise disjoint edge sets \(F_1,\ldots ,F_d\)
+whose union is a forest, </p><div class="math-block" id="eq-forest-negative-correlation">\begin{equation}\tag{2.1} \Pr \left (\bigcup _{i=1}^d F_i\subseteq T\right ) \le \prod _{i=1}^d\Pr (F_i\subseteq T). \end{equation}</div>
+<h2 id="rectangular-area-penalty">3 Rectangular Area Penalty</h2>
+<p>We first compare a rectangle whose area is at least \(n^2\) with the \(n\times n\) square.
+</p>
+   <div class="theorem">
+<p><span class="theorem-label">
+<span id="lem-rectangular-penalty"></span>
+<strong>Lemma 3.1 </strong>(Rectangular area penalty)<strong>.</strong>  </span> <em>Let </em>\(n,r,s\) <em>be positive integers with </em>\(r\le s\) <em>and </em>\(rs\ge n^2\)<em>. Then </em></p><div class="math-block" id="eq-rectangular-penalty">\begin{equation}\tag{3.1} \log \tau (r,s)-\log \tau (n,n) \le \frac {4G_{\mathrm {Cat}}}{\pi }(rs-n^2). \end{equation}</div>
+
+<p>   <em>Equality holds if and only if </em>\(r=s=n\)<em>.</em>
+</p>
+   </div>
+
+   <div class="proof">
+<p>   <span class="proof-label">
+<em>Proof.</em> </span>Both  cases  below  telescope  \(\log \tau \)  in  one  side  length.  Each  increment  splits  into  a  main  term,
+depending only on the side length held fixed, and a residual. The main terms supply the entropy
+constant together with a deficit of at least \(\alpha \); each residual sum contributes less than \(\alpha \). The strict
+inequality comes from that margin.
+
+</p><p>   For \(0\le x\le 1\) and every integer \(a\ge 1\), define </p><div class="math-block">\[ c(x)=\arcosh (2-\cos \pi x), \qquad C_a=\sum _{j=1}^{a-1}c(j/a). \]</div>
+<p>   Set </p><div class="math-block">\[ \varepsilon _a := a\frac {4G_{\mathrm {Cat}}}{\pi }-\alpha -C_a. \]</div>
+<p>   The rectangular product formula, its hyperbolic reduction, and the trapezoidal estimate in
+<span class="citation">[<a href="#ref-zha26a">Zha26a</a>, Proposition 2.1, equations (3.1)–(3.2), Lemmas 3.1, 3.2, and 5.1, and equation (5.6)]</span> give
+</p><div class="math-block" id="eq-c-error">\begin{equation}\tag{3.2} C_a = a\frac {4G_{\mathrm {Cat}}}{\pi } -\alpha -\varepsilon _a, \qquad \varepsilon _a\ge 0, \qquad \frac {\varepsilon _a}{a}\ \text {is nonincreasing}. \end{equation}</div>
+
+<p>   The identification of the integral in the main term with \(4G_{\mathrm {Cat}}/\pi \) is <span class="citation">[<a href="#ref-zha26a">Zha26a</a>, Appendix Lemma
+A.3]</span>.
+</p><p>   For positive integers \(a,t\), define </p><div class="math-block">\[ \mathcal R_a(t) := \sum _{j=1}^{a-1} \log \frac {1-e^{-2(t+1)c(j/a)}} {1-e^{-2t c(j/a)}}. \]</div>
+<p>   The same hyperbolic formula gives </p><div class="math-block" id="eq-rectangular-increment">\begin{equation}\tag{3.3} \Delta _a(t) := \log \frac {\tau (a,t+1)}{\tau (a,t)} = C_a+\mathcal R_a(t), \end{equation}</div>
+
+<p>   and \(\mathcal R_a(t)\ge 0\). These formulas include \(a=1\) by the empty-product convention.
+</p><p>   Since \(c\) is concave, \(c(0)=0\), and \(c(1)=2\alpha \), for \(1\le j\le a-1\) we have </p><div class="math-block">\[ c(j/a)\ge \frac {2\alpha j}{a}. \]</div>
+<p>   For integers \(u\ge t\ge a\), set </p><div class="math-block">\[ q:=e^{-4\alpha }=(3-2\sqrt 2)^2, \qquad K:=\sum _{j\ge 1}-\log (1-q^j). \]</div>
+<p>   The residuals telescope to give </p><div class="math-block">\begin{align*} \sum _{v=t}^{u-1}\mathcal R_a(v) &amp;= \sum _{j=1}^{a-1} \log \frac {1-e^{-2u c(j/a)}} {1-e^{-2t c(j/a)}}. \end{align*}</div>
+<p>   For \(j\ge 1\), the estimate </p><div class="math-block">\[ -\log (1-q^j) \le \frac {q^j}{1-q^j} \le \frac {q^j}{1-q} \]</div>
+<p>   therefore gives the uniform bound </p><div class="math-block" id="eq-residual-bound">\begin{equation}\tag{3.4} 0 \le \sum _{v=t}^{u-1}\mathcal R_a(v) &lt; K \le \frac {q}{(1-q)^2} = \frac 1{32} &lt; \alpha . \end{equation}</div>
+
+<p>   Suppose first that \(r\le n\le s\). Put </p><div class="math-block">\[ k=n-r,\qquad \ell =s-n,\qquad \delta =rs-n^2=\ell r-kn. \]</div>
+<p>   Telescoping (<a href="#eq-rectangular-increment">3.3</a>) and using symmetry gives </p><div class="math-block" id="eq-first-rectangle-telescope">\begin{equation}\tag{3.5} \log \frac {\tau (r,s)}{\tau (n,n)} = \sum _{t=n}^{s-1}\Delta _r(t) - \sum _{t=r}^{n-1}\Delta _n(t). \end{equation}</div>
+
+<p>   Substituting (<a href="#eq-rectangular-increment">3.3</a>) splits the right side of (<a href="#eq-first-rectangle-telescope">3.5</a>) into a \(C\)-part and a residual part: </p><div class="math-block">\[ \log \frac {\tau (r,s)}{\tau (n,n)} = \bigl (\ell C_r-kC_n\bigr ) + \left ( \sum _{t=n}^{s-1}\mathcal R_r(t) - \sum _{t=r}^{n-1}\mathcal R_n(t) \right ). \]</div>
+<p>   We bound the two in turn.
+</p><p>   The area condition \(\delta \ge 0\) reads \(\ell r\ge kn\). If the rectangles are distinct it forces \(\ell -k\ge 1\): when \(k=0\), distinctness implies \(\ell \ge 1\); when \(k&gt;0\),
+the inequality \(\ell r\ge kn\) together with \(r&lt;n\) gives \(\ell &gt;k\). The monotonicity in (<a href="#eq-c-error">3.2</a>) gives \(\varepsilon _r/r\ge \varepsilon _n/n\), whence </p><div class="math-block">\[ \ell \varepsilon _r \ge \frac {\ell r}{n}\varepsilon _n \ge k\varepsilon _n. \]</div>
+<p>   By (<a href="#eq-c-error">3.2</a>) the \(C\)-part is therefore </p><div class="math-block">\[ \ell C_r-kC_n = \delta \frac {4G_{\mathrm {Cat}}}{\pi } -(\ell -k)\alpha -\ell \varepsilon _r+k\varepsilon _n \le \delta \frac {4G_{\mathrm {Cat}}}{\pi }-(\ell -k)\alpha . \]</div>
+<p>   In the residual part the subtracted sum is nonnegative, and the first sum is less than \(K&lt;\alpha \) by
+(<a href="#eq-residual-bound">3.4</a>). For distinct rectangles \(\ell -k\ge 1\), so the two parts together are less than \(\delta \,4G_{\mathrm {Cat}}/\pi \); thus (<a href="#eq-rectangular-penalty">3.1</a>) is strict unless
+\(r=s=n\).
+</p><p>   It remains to consider \(n\le r\le s\). For \(a\ge 1\), symmetry and (<a href="#eq-rectangular-increment">3.3</a>) give </p><div class="math-block">\[ \log \frac {\tau (a+1,a+1)}{\tau (a,a)} = \Delta _a(a)+\Delta _{a+1}(a). \]</div>
+<p>   The \(C\)-part is </p><div class="math-block">\[ (2a+1)\frac {4G_{\mathrm {Cat}}}{\pi } -2\alpha -\varepsilon _a-\varepsilon _{a+1}. \]</div>
+<p>   The first residual, \(\mathcal R_a(a)\), is less than \(1/32\). For \(1\le j\le a\), concavity also gives </p><div class="math-block">\[ 2a\,c(j/(a+1)) \ge \frac {4a}{a+1}\alpha j \ge 2\alpha j. \]</div>
+<p>   With \(q_0=e^{-2\alpha }=3-2\sqrt 2\), the second residual, \(\mathcal R_{a+1}(a)\), is therefore less than </p><div class="math-block">\[ \sum _{j\ge 1}-\log (1-q_0^j) \le \frac {q_0}{(1-q_0)^2} = \frac 14. \]</div>
+<p>   Since \(1/32+1/4&lt;2\alpha \), we obtain </p><div class="math-block">\[ \log \tau (a+1,a+1)-\log \tau (a,a) &lt; (2a+1)\frac {4G_{\mathrm {Cat}}}{\pi }. \]</div>
+<p>   If \(r&gt;n\), summing this strict inequality gives </p><div class="math-block" id="eq-square-growth-summed">\begin{equation}\tag{3.6} \log \tau (r,r)-\log \tau (n,n) &lt; \frac {4G_{\mathrm {Cat}}}{\pi }(r^2-n^2); \end{equation}</div>
+
+<p>   when \(r=n\), the left side and the right side are both zero.
+</p><p>   If \(s&gt;r\), then (<a href="#eq-c-error">3.2</a>) and (<a href="#eq-residual-bound">3.4</a>) give </p><div class="math-block" id="eq-rectangle-extension">\begin{align} \log \frac {\tau (r,s)}{\tau (r,r)} &amp;= (s-r)C_r+\sum _{t=r}^{s-1}\mathcal R_r(t) \notag \\ &amp;&lt; \frac {4G_{\mathrm {Cat}}}{\pi }\,r(s-r). \tag{3.7} \end{align}</div>
+
+<p>   Indeed, before the last inequality the right side is at most </p><div class="math-block">\[ \frac {4G_{\mathrm {Cat}}}{\pi }\,r(s-r) -(s-r)\alpha +K, \]</div>
+<p>   which is strictly smaller because \(s-r\ge 1\) and \(K&lt;\alpha \). When \(s=r\), both sides of the corresponding non-strict inequality
+are zero. Adding (<a href="#eq-square-growth-summed">3.6</a>) and (<a href="#eq-rectangle-extension">3.7</a>), </p><div class="math-block">\[ \log \frac {\tau (r,s)}{\tau (n,n)} = \log \frac {\tau (r,r)}{\tau (n,n)} + \log \frac {\tau (r,s)}{\tau (r,r)} \le \frac {4G_{\mathrm {Cat}}}{\pi }(r^2-n^2) + \frac {4G_{\mathrm {Cat}}}{\pi }r(s-r) = \frac {4G_{\mathrm {Cat}}}{\pi }(rs-n^2), \]</div>
+<p>   which is (<a href="#eq-rectangular-penalty">3.1</a>). The first summand is strict when \(r&gt;n\) and the second when \(s&gt;r\), so the inequality is strict unless
+\(r=s=n\). This also covers \(n=1\).                                                                                                                                          □
+</p>
+   </div>
+
+
+   <h2 id="normalized-hull">4 Normalized Rectangular-Hull Inequality</h2>
+<p>For a finite nonempty \(S\subset \Z ^2\), define its coordinate extrema by </p><div class="math-block">\[ x_-:=\min _{(x,y)\in S}x,\quad x_+:=\max _{(x,y)\in S}x,\quad y_-:=\min _{(x,y)\in S}y,\quad y_+:=\max _{(x,y)\in S}y. \]</div>
+<p>   Its minimal rectangular vertex hull is </p><div class="math-block">\[ \{x_-,\ldots ,x_+\}\times \{y_-,\ldots ,y_+\}. \]</div>
+<p>   Thus, after translation, the hull is \(\Lambda _{r,s}\), where \(r=x_+-x_-+1\) and \(s=y_+-y_-+1\). The central estimate is the following.
+</p>
+   <div class="theorem">
+<p><span class="theorem-label">
+<span id="lem-normalized-hull"></span>
+<strong>Lemma 4.1 </strong>(Normalized hull inequality)<strong>.</strong>  </span> <em>Let </em>\(S\subset \Z ^2\) <em>be finite, suppose that </em>\(\mathcal L[S]\) <em>is connected, and suppose after translation
+that </em>\(\Lambda _{r,s}\) <em>is its minimal rectangular vertex hull. Then </em></p><div class="math-block" id="eq-normalized-hull">\begin{equation}\tag{4.1} \log \tau (S)-\log \tau (r,s) \le -\frac {4G_{\mathrm {Cat}}}{\pi } |\Lambda _{r,s}\setminus S|. \end{equation}</div>
+
+   </div>
+<p>   The proof runs to the end of Section <a href="#boundary-vacancies">5</a>. Passing to the planar dual converts the deletion of a set of
+vertices into the event that a prescribed forest is contained in a uniform spanning tree; the missing vertices
+are then split into king components, and negative correlation reduces the lemma to one bound per
+component. Components disjoint from the perimeter are handled below by counting the
+spanning trees of a union of unit squares in the dual, the rest by the determinant estimate of
+Section <a href="#boundary-vacancies">5</a>.
+</p><p>   If \(r=1\) or \(s=1\), the connectedness of \(\mathcal L[S]\) and the minimality of the hull imply \(S=\Lambda _{r,s}\) and \(\tau (S)=\tau (r,s)\), so (<a href="#eq-normalized-hull">4.1</a>) is immediate. We
+assume below that \(r,s\ge 2\).
+
+</p>
+   <h3 id="dual-contractions">4.1 Dual Contractions</h3>
+<p>Let \(D=R_{r,s}^\star \) be the geometric planar dual, including its exterior vertex. If \(e\in E(R_{r,s})\), let \(e^\star \) be its corresponding dual edge. For \(X\subseteq \Lambda _{r,s}\),
+let </p><div class="math-block">\[ E_X^\star := \{e^\star : e\in E(R_{r,s})\ \text {has at least one endpoint in }X\}, \]</div>
+<p>   and let \(H_X\) be the dual subgraph formed by \(E_X^\star \), with isolated vertices suppressed.
+</p><p>   Whenever \(\mathcal L[\Lambda _{r,s}\setminus X]\) is connected, planar matroid duality gives </p><div class="math-block">\[ \tau (\Lambda _{r,s}\setminus X) = \tau (D/E_X^\star ). \]</div>
+<p>   Planar tree duality also gives \(\tau (D)=\tau (r,s)\). Indeed, deleting the primal edges incident with \(X\) leaves the connected
+graph \(R_{r,s}[\Lambda _{r,s}\setminus X]\), together with the isolated vertices of \(X\). Its cycle-matroid bases are exactly the spanning trees of the
+connected component; the isolated vertices contribute no edge choice. Deletion of the primal edges is
+contraction of their duals.
+</p><p>   Call a component nontrivial if it contains at least one edge, and let \(F_X\) be a spanning forest of the
+nontrivial components of \(H_X\). Contracting \(F_X\) makes every edge of \(E_X^\star \setminus F_X\) a loop, so the preceding duality identity and
+the contraction identity give </p><div class="math-block" id="eq-forest-event">\begin{equation}\tag{4.2} \frac {\tau (\Lambda _{r,s}\setminus X)}{\tau (r,s)} = \Pr (F_X\subseteq T), \end{equation}</div>
+<p>   where \(T\) is a uniform spanning tree of \(D\).
+</p><p>   For \(z=(z_1,z_2)\in \Z ^2\), set \(\lVert z\rVert _\infty :=\max \{|z_1|,|z_2|\}\). Two lattice vertices \(u,v\) are king-adjacent when \(\lVert u-v\rVert _\infty =1\). The perimeter vertex set of the rectangular hull
+is </p><div class="math-block">\[ \partial \Lambda _{r,s} := \{(x,y)\in \Lambda _{r,s}: x\in \{0,r-1\}\ \text {or}\ y\in \{0,s-1\}\}. \]</div>
+<p>   Partition \(\Lambda _{r,s}\setminus S\) into components for king adjacency. Let \(\Vvac \) be the union of those components that meet \(\partial \Lambda _{r,s}\), and
+denote the remaining, interior components by </p><div class="math-block">\[ J_1,\ldots ,J_m. \]</div>
+
+<p>   Here \(m\) may be zero. For a primal vertex \(v\), call the subgraph formed by the duals of the primal edges
+incident with \(v\) its dual face-star. Distinct king components have disjoint dual edge sets. Two primal
+vertices can be incident with a common bounded unit face only if their \(\ell ^\infty \)-distance is at most one;
+their dual face-stars are therefore vertex-disjoint, except that different boundary components
+can share the exterior dual vertex. Within one king component, the face-stars of successive
+vertices meet, so their union is connected; for a boundary component, one of these stars also
+meets the exterior vertex. Hence \(H_{\Vvac }\) is connected when \(\Vvac \ne \varnothing \), and each \(H_{J_i}\) is connected. Set \(F_{\Vvac }=\varnothing \) when \(\Vvac =\varnothing \);
+otherwise choose a spanning tree of \(H_{\Vvac }\). For \(1\le i\le m\), choose a spanning tree \(F_{J_i}\) of \(H_{J_i}\). These forest edge blocks
+are pairwise disjoint, and their union is a spanning forest of the nontrivial components of
+\(H_{\Lambda _{r,s}\setminus S}\).
+</p><p>   We record why all deletion graphs used here are connected. Every king component \(C\) has a
+nearest-neighbour edge to \(S\): on a nearest-neighbour path from \(C\) to \(S\), the first vertex outside \(C\) cannot lie in
+another king component. Moreover, a diagonal king step between \(u,v\in C\) can be replaced by a two-edge
+nearest-neighbour path through an orthogonal corner of their unit square. If the corner is in \(\Lambda _{r,s}\setminus S\), it is
+king-adjacent to \(u\) and hence belongs to \(C\); otherwise it belongs to \(S\). Thus \(\mathcal L[S\cup C]\) is connected. It follows that every
+undeleted king component is joined to the common connected subgraph \(\mathcal L[S]\). Hence \(\mathcal L[\Lambda _{r,s}\setminus \Vvac ]\) and every \(\mathcal L[\Lambda _{r,s}\setminus J_i]\) are
+connected.
+</p><p>   Applying (<a href="#eq-forest-event">4.2</a>) and (<a href="#eq-forest-negative-correlation">2.1</a>) to the disjoint forest edge blocks gives </p><div class="math-block" id="eq-component-product">\begin{equation}\tag{4.3} \frac {\tau (S)}{\tau (r,s)} \le \frac { \tau (\Lambda _{r,s}\setminus \Vvac ) }{\tau (r,s)} \prod _{i=1}^m \frac {\tau (\Lambda _{r,s}\setminus J_i)}{\tau (r,s)}. \end{equation}</div>
+<p>   The factor indexed by \(\Vvac \) is one when \(\Vvac =\varnothing \).
+
+</p>
+   <h3 id="interior-vacancy-components">4.2 Interior Vacancy Components</h3>
+<p>For each \(i\in \{1,\ldots ,m\}\), put \(J:=J_i\). The following argument is vacuous when \(m=0\). The dual graph \(H_J\) is a finite connected
+square-lattice graph. Every \(v\in J\) contributes a complete unit square to \(H_J\), formed by the four duals of the primal
+edges incident with \(v\). Different vertices give different squares, so </p><div class="math-block">\[ \sq (H_J)\ge |J|. \]</div>
+<p>   By Theorem <a href="#thm-tapp">2.1</a>, </p><div class="math-block">\[ \tau (H_J) \ge \exp \!\left ( \frac {4G_{\mathrm {Cat}}}{\pi }|J| \right ). \]</div>
+<p>   For every spanning tree \(F\) of \(H_J\), (<a href="#eq-forest-event">4.2</a>) gives </p><div class="math-block">\[ \Pr (F\subseteq T) = \frac {\tau (\Lambda _{r,s}\setminus J)}{\tau (r,s)}. \]</div>
+<p>   These events are pairwise incompatible: the union of two distinct spanning trees on the same vertex
+set contains a cycle, while \(T\) is acyclic. Summing over the spanning trees of \(H_J\) therefore gives
+</p><div class="math-block">\[ \tau (H_J)\,\frac {\tau (\Lambda _{r,s}\setminus J)}{\tau (r,s)} = \sum _{F}\Pr (F\subseteq T) \le 1, \]</div>
+<p>   which with the preceding consequence of Tapp’s theorem yields </p><div class="math-block" id="eq-interior-factor">\begin{equation}\tag{4.4} \frac {\tau (\Lambda _{r,s}\setminus J)}{\tau (r,s)} \le \frac 1{\tau (H_J)} \le \exp \!\left ( -\frac {4G_{\mathrm {Cat}}}{\pi }|J| \right ). \end{equation}</div>
+<p>   The argument used that \(J\) misses the perimeter: only then does each \(v\in J\) have four incident primal edges,
+whose duals close into a unit square. A vacancy on \(\partial \Lambda _{r,s}\) has fewer, so the count above does not apply to it, and
+the same exponential factor for the union \(\Vvac \) of the boundary-attached components is obtained differently, in
+Section <a href="#boundary-vacancies">5</a>.
+
+</p>
+   <h2 id="boundary-vacancies">5 Boundary-Attached Vacancies</h2>
+<p>What is proved here is a comparison of two determinants. Both \(\tau (r,s)\) and \(\tau (\Lambda _{r,s}\setminus \Vvac )\) have the form \(\det (4I-\mathsf A)\) for the adjacency
+matrix of a set of unit faces, and expanding \(\log \det \) in closed walks turns their ratio into a sum, over closed
+walks, of the number of placements meeting a face with a corner in \(\Vvac \). The first three subsections bound
+
+that number by \(|\Vvac |\) plus a multiple of the number of vacancy runs interior to a row or column; the last
+assembles the estimate.
+</p><p>   Retain the boundary-vacancy set \(\Vvac \subseteq \Lambda _{r,s}\setminus S\) from the preceding section. For \(z\in \Z ^2\) and \(A\subseteq \Z ^2\), define the translate
+</p><div class="math-block">\[ z+A:=\{z+a:a\in A\}. \]</div>
+<p>   Let </p><div class="math-block">\[ \Phi = \{0,\ldots ,r-2\}\times \{0,\ldots ,s-2\} \]</div>
+<p>   index the unit faces of \(R_{r,s}\). The face indexed by \(z\in \Phi \) has corner set \(z+\{0,1\}^2\). Define the marked and unmarked face
+sets by </p><div class="math-block">\[ M = \{z\in \Phi :(z+\{0,1\}^2)\cap \Vvac \ne \varnothing \}, \qquad U=\Phi \setminus M. \]</div>
+<p>   An interval component is a maximal nonempty set of consecutive integers. Let \(\rho _x\) be the total number of
+interval components of \(\Lambda _{r,s}\setminus \Vvac \) in all horizontal rows, and let \(\rho _y\) be the corresponding total in all vertical columns.
+Put </p><div class="math-block">\[ g_x=\rho _x-s,\qquad g_y=\rho _y-r. \]</div>
+<p>   Every row and column contains a vertex of \(S\). Indeed, minimality gives a vertex of \(S\) on each of the two
+extreme columns, and a nearest-neighbour path in \(S\) between them visits every intermediate column. The
+row statement is identical. Consequently \(g_x,g_y\ge 0\). Here a run of \(\Vvac \) is an interval component of \(\Vvac \) in a row or column,
+and it is internal when it touches neither endpoint of that row or column. Then \(g_x\) is exactly the total
+number of horizontally internal runs of \(\Vvac \), and \(g_y\) is the corresponding number of vertically internal
+runs.
+
+</p>
+   <h3 id="one-dimensional-windows">5.1 One-Dimensional Windows</h3>
+<p>We begin with an elementary interval estimate.
+</p>
+   <div class="theorem">
+<p><span class="theorem-label">
+<span id="lem-one-dimensional-window"></span>
+<strong>Lemma 5.1.</strong>  </span> <em>Let </em>\(L\ge 0\) <em>be an integer, let </em>\(B\subseteq \{0,\ldots ,L\}\)<em>, and let </em>\(i(B)\) <em>be the number of interval components of </em>\(B\) <em>that touch neither
+endpoint. For an integer </em>\(p\) <em>with </em>\(0\le p\le L\)<em>, the number of integer intervals</em> </p><div class="math-block">\[ [t,t+p]:=\{t,t+1,\ldots ,t+p\}\subseteq \{0,\ldots ,L\}, \qquad t\in \Z , \]</div>
+<p>   <em>that meet </em>\(B\) <em>is at most</em> </p><div class="math-block">\[ |B|+p\,i(B). \]</div>
+   </div>
+
+   <div class="proof">
+<p>   <span class="proof-label">
+<em>Proof.</em> </span>A boundary run of length \(a\) is met by at most \(a\) such intervals, whereas an internal run of
+length \(a\) is met by at most \(a+p\). Summing over the runs proves the claim; any double counting only
+strengthens the upper bound.                                                                                                                     □
+</p>
+   </div>
+<p>   For an integer \(p\) with \(0\le p\le r-1\), define </p><div class="math-block">\[ Y_p = \left \{ (x,y)\in \{0,\ldots ,r-1-p\}\times \{0,\ldots ,s-1\}: ([x,x+p]\times \{y\})\cap \Vvac \ne \varnothing \right \}. \]</div>
+<p>   Applying Lemma <a href="#lem-one-dimensional-window">5.1</a> in each row gives </p><div class="math-block" id="eq-horizontal-window">\begin{equation}\tag{5.1} |Y_p|\le |\Vvac |+p g_x. \end{equation}</div>
+<h3 id="sliding-window-injection">5.2 A Sliding-Window Injection</h3>
+<p>For an integer \(x\) with \(0\le x\le r-1-p\), let </p><div class="math-block">\[ Y_{p,x}=\{y:(x,y)\in Y_p\}. \]</div>
+<p>   The second ingredient is </p><div class="math-block" id="eq-window-injection">\begin{equation}\tag{5.2} \sum _{x=0}^{r-1-p}i(Y_{p,x})\le g_y. \end{equation}</div>
+<p>   It is proved in two steps: each internal interval component of \(Y_{p,x}\) contains the projection of a
+connected piece of vacancy runs lying in the window and carrying no run that touches row \(0\)
+or row \(s-1\); and those pieces, taken over all windows, inject into the vertically internal runs of
+\(\Vvac \).
+</p><p>   To prove it, form the full run graph, whose vertices are the maximal vertical runs of \(\Vvac \). Join two runs in
+adjacent columns when their integer intervals overlap or are adjacent, and mark a run if it touches row \(0\) or
+row \(s-1\). The connected components of the full run graph are precisely the king components of \(\Vvac \).
+Since every such component meets \(\partial \Lambda _{r,s}\), it contains either a marked run or a run in column \(0\) or
+\(r-1\).
+</p><p>   Fix once and for all a rooted spanning tree in every component of the full run graph. Use a
+marked run as the root whenever possible, and otherwise use a run in column \(0\) or \(r-1\). For the
+window of columns \([x,x+p]\), consider the subgraph of the full run graph induced by the run vertices
+whose columns lie in this window. In each of its components containing no marked run,
+choose a run of minimum depth, where depth is measured in the previously fixed rooted
+tree.
+</p><p>   If the chosen run is not the root, its parent lies outside the window; otherwise the parent would belong
+to the same induced component at a smaller depth. Parent and child lie in adjacent columns. If the parent
+is to the left, then \(x\) is the child’s column; if the parent is to the right, then \(x\) is the child’s column
+minus \(p\). Thus the oriented parent–child pair determines the window start uniquely. If the
+chosen run is an unmarked root, column \(0\) forces \(x=0\), while column \(r-1\) forces \(x=r-1-p\). Therefore the pairs
+</p><div class="math-block">\[ (\text {window},\text {unmarked induced component}) \]</div>
+<p>   inject into the unmarked vertices of the full run graph. These vertices are exactly the vertically internal
+runs of \(\Vvac \), of which there are \(g_y\).
+</p><p>   Every internal interval component of \(Y_{p,x}\) contains the vertical projection of an induced run-graph
+component containing no marked run. The projection of a connected induced run-graph
+component is itself an integer interval, because adjacent runs overlap or are one unit apart.
+Distinct interval components therefore contain distinct such induced components. This proves
+(<a href="#eq-window-injection">5.2</a>).
+</p><p>   For integers \(a,b\) with \(1\le a\le r\) and \(1\le b\le s\), define </p><div class="math-block">\[ \win _{a,b}(\Vvac ) := \left | \left \{ (x,y)\in \Z ^2: \begin {array}{l} 0\le x\le r-a,\quad 0\le y\le s-b,\\ ([x,x+a-1]\times [y,y+b-1])\cap \Vvac \ne \varnothing \end {array} \right \} \right |. \]</div>
+<p>   Applying Lemma <a href="#lem-one-dimensional-window">5.1</a> vertically and then using (<a href="#eq-horizontal-window">5.1</a>) and (<a href="#eq-window-injection">5.2</a>) gives, for every integer \(q\) with \(0\le q\le s-1\),
+</p><div class="math-block" id="eq-anisotropic-window">\begin{equation}\tag{5.3} \win _{p+1,q+1}(\Vvac ) \le |\Vvac |+p g_x+q g_y. \end{equation}</div>
+<h3 id="closed-walk-charging">5.3 Closed-Walk Charging</h3>
+<p>For an integer \(\ell \ge 1\), put \(e_1=(1,0)\) and \(e_2=(0,1)\). A closed step word of length \(\ell \) is a sequence </p><div class="math-block">\[ \omega =(d_1,\ldots ,d_\ell ), \qquad d_i\in \{\pm e_1,\pm e_2\}, \qquad \sum _{i=1}^{\ell }d_i=0. \]</div>
+<p>   Define its partial-sum set by </p><div class="math-block">\[ P_\omega = \{0,d_1,d_1+d_2,\ldots ,d_1+\cdots +d_\ell \}, \]</div>
+<p>   and set </p><div class="math-block">\[ r_x(\omega ) = \max _{z\in P_\omega }z_1-\min _{z\in P_\omega }z_1, \qquad r_y(\omega ) = \max _{z\in P_\omega }z_2-\min _{z\in P_\omega }z_2. \]</div>
+<p>   Let \(\mathcal C_\ell \) be the set of closed words of length \(\ell \), and put \(w_\ell =|\mathcal C_\ell |\).
+</p><p>   We use two exact closed-walk sums. The first is the standard square-lattice tree-entropy identity
+<span class="citation">[<a href="#ref-sw00">SW00</a>]</span>: </p><div class="math-block" id="eq-walk-entropy">\begin{equation}\tag{5.4} \sum _{\ell \ge 1}\frac {w_\ell }{\ell 4^\ell } = \log 4-\frac {4G_{\mathrm {Cat}}}{\pi }. \end{equation}</div>
+
+<p>   This series is absolutely convergent: \(w_{2a}=\binom {2a}{a}^2\) for \(a\ge 1\), so its nonzero terms are \(O(a^{-2})\). The second is </p><div class="math-block" id="eq-walk-span">\begin{equation}\tag{5.5} \sum _{\ell \ge 1}\frac 1{\ell 4^\ell } \sum _{\omega \in \mathcal C_\ell }(r_x(\omega )+1) = \log \frac 4{1+\sqrt 2}. \end{equation}</div>
+<p>   We include the proof of (<a href="#eq-walk-span">5.5</a>). Let \(a\ge 1\) and \(h=2a\). A one-dimensional bridge of length \(h\) is a sequence \(\gamma =(\gamma _0,\ldots ,\gamma _h)\) such that \(\gamma _0=\gamma _h=0\)
+and \(\gamma _t-\gamma _{t-1}\in \{-1,1\}\) for \(1\le t\le h\). Define </p><div class="math-block">\[ \operatorname {span}(\gamma ) := \max _{0\le t\le h}\gamma _t-\min _{0\le t\le h}\gamma _t. \]</div>
+<p>   Thus \(\operatorname {span}(\gamma )+1\) is the number of integer levels visited by \(\gamma \). For an integer \(k&gt;0\) and a bridge that visits \(k\), let \(\sigma _k\) be its first
+visit to \(k\), and set </p><div class="math-block">\[ \gamma'_t = \begin {cases} \gamma _t,&amp;t\le \sigma _k,\\ 2k-\gamma _t,&amp;t\ge \sigma _k. \end {cases} \]</div>
+<p>   This reflection is a bijection with unrestricted walks of length \(h\) from \(0\) to \(2k\). The negative levels are
+symmetric, while level zero is visited by every bridge. Summing over levels rather than over bridges,
+</p><div class="math-block">\begin{align*} \sum _{\substack {\gamma _0=\gamma _h=0\\ \gamma _t-\gamma _{t-1}\in \{-1,1\},\ 1\le t\le h}} (\operatorname {span}(\gamma )+1) &amp;= \binom {h}{a} + \sum _{k=1}^a \left [ \binom {h}{a+k}+\binom {h}{a-k} \right ]\\ &amp;=2^h. \end{align*}</div>
+<p>   For even \(\ell \), condition a two-dimensional closed word on the even number \(h\) of its horizontal steps and on
+their positions. Write \([\zeta ^0]\) for extraction of the constant term in the formal variable \(\zeta \). The bridge identity is also
+immediate when \(h=0\). Using it gives </p><div class="math-block">\begin{align*} \sum _{\omega \in \mathcal C_\ell }(r_x(\omega )+1) &amp;= \sum _{\substack {0\le h\le \ell \\h\ \mathrm {even}}} \binom {\ell }{h}2^h \binom {\ell -h}{(\ell -h)/2}\\ &amp;= [\zeta ^0](2+\zeta +\zeta ^{-1})^\ell = \binom {2\ell }{\ell }. \end{align*}</div>
+<p>   There are no closed words for odd \(\ell \). For \(|t|&lt;1/4\), define </p><div class="math-block">\[ \mathcal B(t) := \sum _{\ell \ge 1} \binom {2\ell }{\ell }\frac {t^\ell }{\ell } = 2\log \frac 2{1+\sqrt {1-4t}}. \]</div>
+<p>   At \(t=\pm 1/4\), its terms are \(O(\ell ^{-3/2})\), so both boundary series converge. Abel’s theorem extends the displayed closed
+form to both endpoints, applied to \(\mathcal B(-t)\) for the negative endpoint. Taking the even part gives
+</p><div class="math-block">\[ \frac {\mathcal B(1/4)+\mathcal B(-1/4)}2 = \log \frac 4{1+\sqrt 2}, \]</div>
+<p>   which proves (<a href="#eq-walk-span">5.5</a>).
+</p><p>   Define </p><div class="math-block">\[ N(M;\omega ) := \left | \{z\in \Z ^2:z+P_\omega \subseteq \Phi ,\
+(z+P_\omega )\cap M\ne \varnothing \} \right |. \]</div>
+<p>   Its bounding face rectangle has \(r_x(\omega )+1\) face columns and \(r_y(\omega )+1\) face rows. The corresponding primal vertex
+window has \(r_x(\omega )+2\) columns and \(r_y(\omega )+2\) rows and meets \(\Vvac \). For fixed \(\omega \), translation by its coordinatewise minima makes
+the map from a start \(z\) to this window’s lower-left corner injective. If either span is too large for \(\Phi \), there is no
+admissible start and the desired estimate is immediate. Otherwise, taking \(p=r_x(\omega )+1\) and \(q=r_y(\omega )+1\) in (<a href="#eq-anisotropic-window">5.3</a>) yields
+</p><div class="math-block" id="eq-walk-charging">\begin{equation}\tag{5.6} N(M;\omega ) \le |\Vvac | +g_x(r_x(\omega )+1) +g_y(r_y(\omega )+1). \end{equation}</div>
+<h3 id="determinant-estimate">5.4 The Determinant Estimate</h3>
+<p>Recall that \(M\) and \(U=\Phi \setminus M\) are respectively the marked and unmarked face sets. Every face in \(M\) belongs to a face-star
+indexed by \(\Vvac \). Since every king component of \(\Vvac \) meets the boundary, contraction of \(E_{\Vvac }^\star \) joins all these face
+vertices to the exterior dual vertex. On the other hand, a face indexed by \(U\) has no corner in \(\Vvac \), so all four
+primal boundary edges remain. Thus the bounded faces of \(R_{r,s}[\Lambda _{r,s}\setminus \Vvac ]\) are exactly those indexed by
+\(U\).
+</p><p>   For \(Y\subseteq \Phi \), let \(\mathsf A_Y\) be the adjacency matrix of the face-grid graph induced by \(Y\), and let \(I\) denote the identity matrix
+of the appropriate order. Rooted planar duality and the Matrix–Tree Theorem <span class="citation">[<a href="#ref-kir47">Kir47</a>]</span> give
+</p><div class="math-block" id="eq-dual-determinants">\begin{equation}\tag{5.7} \tau (r,s) = \det (4I-\mathsf A_\Phi ), \qquad \tau (\Lambda _{r,s}\setminus \Vvac ) = \det (4I-\mathsf A_U). \end{equation}</div>
+<p>   Primal bridges become dual loops and do not affect the determinant. When \(U=\varnothing \), the second determinant
+is the \(0\times 0\) determinant and equals one.
+</p><p>   The horizontal edges of \(\Lambda _{r,s}\setminus \Vvac \) number \(|\Lambda _{r,s}\setminus \Vvac |-\rho _x\), and the vertical edges number \(|\Lambda _{r,s}\setminus \Vvac |-\rho _y\). Therefore </p><div class="math-block">\[ |E(R_{r,s}[\Lambda _{r,s}\setminus \Vvac ])| = 2|\Lambda _{r,s}\setminus \Vvac |-\rho _x-\rho _y. \]</div>
+<p>   Since the graph is connected, Euler’s formula, together with \(g_x=\rho _x-s\), \(g_y=\rho _y-r\), and \(|\Phi |=(r-1)(s-1)\), gives </p><div class="math-block">\[ |U| = |E(R_{r,s}[\Lambda _{r,s}\setminus \Vvac ])| - |\Lambda _{r,s}\setminus \Vvac |+1 = |\Lambda _{r,s}\setminus \Vvac |-\rho _x-\rho _y+1, \]</div>
+<p>   and therefore </p><div class="math-block" id="eq-marked-face-count">\begin{equation}\tag{5.8} |M|=|\Vvac |+g_x+g_y. \end{equation}</div>
+<p>   The spectral radius of the rectangular face adjacency is </p><div class="math-block">\[ 2\cos \frac {\pi }{r}+2\cos \frac {\pi }{s} &lt;4. \]</div>
+<p>   Since \(\mathsf A_U\) is a principal submatrix, its spectral radius is also below \(4\), with the empty matrix assigned
+spectral radius zero. Hence, for \(Y\in \{\Phi ,U\}\), the matrix trace \(\operatorname {tr}\) satisfies </p><div class="math-block" id="eq-log-determinant">\begin{equation}\tag{5.9} \log \det (4I-\mathsf A_Y) = |Y|\log 4 - \sum _{\ell \ge 1} \frac {\operatorname {tr}(\mathsf A_Y^\ell )} {\ell 4^\ell }. \end{equation}</div>
+
+<p>   Both log-determinant series are absolutely convergent by the preceding spectral-radius
+bound.
+</p><p>   The trace difference counts precisely the closed-walk starts in \(\Phi \) whose walk meets \(M\): </p><div class="math-block" id="eq-trace-walks">\begin{equation}\tag{5.10} \operatorname {tr}(\mathsf A_\Phi ^\ell ) - \operatorname {tr}(\mathsf A_U^\ell ) = \sum _{\omega \in \mathcal C_\ell }N(M;\omega ). \end{equation}</div>
+<p>   All terms used below are nonnegative, and (<a href="#eq-walk-entropy">5.4</a>)–(<a href="#eq-walk-span">5.5</a>) show that the dominating series are finite. Thus
+Tonelli’s theorem justifies the ensuing interchanges of sums. Subtract the two instances of (<a href="#eq-log-determinant">5.9</a>), substitute
+(<a href="#eq-trace-walks">5.10</a>), and apply the charging bound (<a href="#eq-walk-charging">5.6</a>). Evaluating the three resulting series by (<a href="#eq-walk-entropy">5.4</a>) and (<a href="#eq-walk-span">5.5</a>), the \(g_y\)
+term by symmetry between the coordinates, and then inserting (<a href="#eq-marked-face-count">5.8</a>) and the identifications (<a href="#eq-dual-determinants">5.7</a>), gives
+</p><div class="math-block">\begin{align*} \log \frac {\tau (r,s)} {\tau (\Lambda _{r,s}\setminus \Vvac )} &amp;\ge |M|\log 4 - |\Vvac |\left (\log 4-\frac {4G_{\mathrm {Cat}}}{\pi }\right ) - (g_x+g_y)\log \frac 4{1+\sqrt 2} \notag \\ &amp;= \frac {4G_{\mathrm {Cat}}}{\pi }|\Vvac | + \alpha (g_x+g_y) \notag \\ &amp;\ge \frac {4G_{\mathrm {Cat}}}{\pi }|\Vvac |. \end{align*}</div>
+<p>   We have proved the boundary factor </p><div class="math-block" id="eq-boundary-factor">\begin{equation}\tag{5.11} \frac {\tau (\Lambda _{r,s}\setminus \Vvac )}{\tau (r,s)} \le \exp \!\left ( -\frac {4G_{\mathrm {Cat}}}{\pi }|\Vvac | \right ). \end{equation}</div>
+<div class="proof">
+<p>   <span class="proof-label">
+<em>Completion of the proof of Lemma </em><a href="#lem-normalized-hull"><em>4.1</em></a><em>.</em> </span> Substitute (<a href="#eq-interior-factor">4.4</a>) and (<a href="#eq-boundary-factor">5.11</a>) into (<a href="#eq-component-product">4.3</a>). Since \(\Lambda _{r,s}\setminus S\) is the disjoint union
+of \(\Vvac ,J_1,\ldots ,J_m\), we obtain </p><div class="math-block">\[ \frac {\tau (S)}{\tau (r,s)} \le \exp \!\left ( -\frac {4G_{\mathrm {Cat}}}{\pi } |\Lambda _{r,s}\setminus S| \right ). \]</div>
+<p>   Both tree counts are positive because \(\mathcal L[S]\) and \(R_{r,s}\) are connected. Taking logarithms gives (<a href="#eq-normalized-hull">4.1</a>).         □
+</p>
+   </div>
+
+   <h2 id="proof-square-maximality">6 Proof of Square Maximality</h2>
+   <div class="proof">
+<p>   <span class="proof-label">
+<em>Proof of Theorem </em><a href="#thm-square-maximality"><em>1.2</em></a><em>.</em> </span> Let \(|S|=n^2\). If \(\mathcal L[S]\) is disconnected, then \(\tau (S)=0&lt;\tau (n,n)\).
+</p><p>   Assume that \(\mathcal L[S]\) is connected. After translation and an interchange of coordinates, let its minimal
+rectangular vertex hull be \(\Lambda _{r,s}\), where \(r\le s\). Then </p><div class="math-block">\[ rs\ge n^2, \qquad |\Lambda _{r,s}\setminus S|=rs-n^2. \]</div>
+<p>   Applying Lemmas <a href="#lem-rectangular-penalty">3.1</a> and <a href="#lem-normalized-hull">4.1</a> and adding their log-difference estimates gives </p><div class="math-block">\[ \log \tau (S)-\log \tau (n,n) \le -\frac {4G_{\mathrm {Cat}}}{\pi }(rs-n^2) +\frac {4G_{\mathrm {Cat}}}{\pi }(rs-n^2) =0. \]</div>
+<p>   This proves the inequality.
+</p><p>   If \((r,s)\ne (n,n)\), Lemma <a href="#lem-rectangular-penalty">3.1</a> is strict, so equality is impossible. If \(r=s=n\), then the hull and \(S\) both have \(n^2\) vertices,
+hence \(S=\Lambda _{n,n}\). Undoing the translation and lattice symmetry gives the stated equality characterization.    □
+</p>
+   </div>
+
+   <h2 id="discussion">7 Discussion</h2>
+<p>The rectangular area penalty bounds the gain available from enlarging the hull, and the normalized hull
+inequality charges every omitted vertex by exactly the same entropy constant. In log-difference form the
+
+two estimates add, their constants cancel, and strictness comes entirely from the rectangular
+estimate.
+
+</p>
+   <section aria-labelledby="use-of-ai-tools">
+  <h2 id="use-of-ai-tools">Use of AI tools</h2>
+  <p>A substantial part of the reasoning in this paper was developed with the assistance of a large language model. Both runs used Work mode with Speed mode enabled. GPT-5.6 Sol, at the Extra High reasoning setting, worked on the initial prompt below for 87 minutes 7 seconds and returned incomplete results. GPT-5.6 Sol Ultra continued from those results under the shorter follow-up prompt and produced its result after 199 minutes 9 seconds. The raw output became the basis for a substantial part of the present argument, in particular Lemmas <a href="#lem-rectangular-penalty">3.1</a> and <a href="#lem-normalized-hull">4.1</a>. I manually checked the argument, prepared the bibliography, checked each citation against its source, and wrote the present note. Both prompts are published below.</p>
+
+  <section
+    class="clickable-proof"
+    id="initial-research-prompt"
+    aria-labelledby="initial-research-prompt-heading"
+  >
+    <h3 class="clickable-proof-heading" id="initial-research-prompt-heading">
+      <button
+        type="button"
+        class="clickable-proof-toggle"
+        aria-expanded="false"
+        aria-controls="initial-research-prompt-panel"
+        data-disclosure-target="initial-research-prompt-panel"
+      >
+        <span>Initial research prompt</span>
+      </button>
+    </h3>
+    <div
+      class="clickable-proof-panel"
+      id="initial-research-prompt-panel"
+      role="region"
+      aria-labelledby="initial-research-prompt-heading"
+      hidden
+    >
+      <pre class="prompt-transcript"><code>Current task statement
+
+Let \(\mathcal L\) be the standard nearest-neighbor square-lattice graph with vertex set \(\mathbb Z^2\): distinct vertices \(x,y\in\mathbb Z^2\) are adjacent exactly when \(\|x-y\|_1=1\). For a finite set \(S\subset\mathbb Z^2\), let \(\mathcal L[S]\) be the induced subgraph. For a finite connected graph \(G\), let \(\tau(G)\) denote its number of spanning trees. Set \(\tau(G)=0\) when \(G\) is disconnected. Let
+
+  \[
+  Q_n=P_n\square P_n=\mathcal L[\{0,1,\ldots,n-1\}^2]
+  \]
+
+be the \(n\times n\) square grid graph, which has \(n^2\) vertices.
+
+Resolve the following conjecture completely in dimension two:
+
+SQUARE-MAXIMALITY THEOREM. For every integer \(n\ge 1\) and every finite set \(S\subset\mathbb Z^2\) with \(|S|=n^2\),
+
+  \[
+  \tau(\mathcal L[S])\le \tau(Q_n).
+  \]
+
+Moreover, equality holds if and only if \(S\) is an \(n\times n\) lattice square, up to an automorphism of the square lattice; equivalently, up to translation, reflections, and interchange of the two coordinates.
+
+The disconnected case is immediate under the convention \(\tau=0\), so the substantive case is that \(\mathcal L[S]\) is connected. The theorem must cover arbitrary connected induced subgraphs. Shapes may be nonconvex, have holes, have cutvertices or bridges, have disconnected intersections with individual rows or columns, and have long tentacles.
+
+REQUIRED BACKGROUND
+
+Read the following two papers in full before committing to a proof route:
+  1. https://arxiv.org/abs/2605.23773
+  2. https://arxiv.org/abs/2606.24016
+
+Treat their proved theorems as available background, with precise citation and hypothesis checking. In particular:
+  - For rectangular grids, if \(AB=ab\) and \(A\le a\le b\le B\), the first paper proves
+
+  \[
+  \log\tau(P_a\square P_b)-\log\tau(P_A\square P_B) \ge \operatorname{arsinh}(1)\bigl((A+B)-(a+b)\bigr),
+  \]
+
+with strict inequality unless the two rectangles agree. Consequently, \(Q_n\) is already the unique maximizer among rectangular grids with \(n^2\) vertices.
+  - The second paper proves the analogous perfect-power result within pure Cartesian-product families and states the induced-subgraph conjecture above as its \(d=2\) case.
+  - Every connected induced \(n^2\)-vertex lattice subgraph satisfies
+
+  \[
+  |E|\le 2n(n-1), \qquad |E|-|V|+1\le (n-1)^2,
+  \]
+
+with equality only for \(Q_n\). These edge-count and cycle-rank facts are useful but are explicitly too coarse by themselves.
+  - The product-spectrum and hyperbolic-residual arguments in the papers rely essentially on Cartesian-product structure. Do not silently extend them to arbitrary induced subgraphs without a new comparison theorem and complete error control.
+
+You may use standard results such as Kirchhoff's Matrix-Tree Theorem, the weighted matrix-tree theorem, Rayleigh monotonicity, the transfer-current theorem, Wilson's and Aldous-Broder algorithms, planar duality for spanning trees, Schur complements, determinant identities, Cauchy-Binet, and standard majorization or rearrangement theorems. Every invoked result must nevertheless be stated precisely enough that its hypotheses and the direction of its implication can be audited.
+
+For this benchmark, work under the premise that an exact affirmative finite proof is available to be found. A response that only labels the conjecture open, difficult, plausible, asymptotically supported, or computationally verified is not responsive. If exact integer calculations produce a genuine counterexample, that supersedes the premise and gives a complete negative resolution; approximate numerical evidence does not.
+
+The finished argument must establish the stated theorem for every \(n\ge1\), including all equality cases. It may not impose extra conditions such as simple connectivity, orthogonal convexity, row- or column-convexity, bridgelessness, bounded aspect ratio, or product structure.
+
+WHAT DOES NOT COUNT
+
+Intermediate advances are useful internally, but the delivered solution must settle the whole theorem. None of the following, standing alone, is an acceptable endpoint:
+  - proving only the rectangular, Ferrers, Young-diagram, convex, simply connected, or hole-free cases;
+  - proving an asymptotic inequality, an inequality only up to \(e^{o(n^2)}\), or a statement only for sufficiently large \(n\);
+  - observing that the square minimizes boundary or maximizes edges, average degree, face count, or cycle rank;
+  - applying a general upper bound on \(\tau(G)\) that remains above \(\tau(Q_n)\);
+  - asserting without proof that a compression, symmetrization, hole-filling operation, or boundary-vertex transfer increases the number of spanning trees;
+  - reducing the theorem to a new lemma that is equivalent or nearly equivalent in strength, without proving that lemma;
+  - proving a comparison for one eigenvalue or a few spectral moments while the full determinant comparison remains missing;
+  - computational verification through any fixed \(n\), or floating-point determinant comparisons;
+  - omitting strictness or the equality case;
+  - invoking a theorem whose hypotheses fail for induced lattice subgraphs with holes, bridges, cutvertices, or nonsimple planar duals.
+
+MULTIAGENT RESEARCH MANAGEMENT
+
+Exploit multiagent v2 at full scale, coordinating as many as 64 simultaneous agents when useful. Allocate agents adaptively rather than reserving a predetermined number for each strategy. Launch the search with a broad collection of mathematically independent directions. In the early stages, keep the leading hypothesis private from most agents so that the group does not collapse onto one seductive but incomplete route. The initial collection should span genuinely different mechanisms, including:
+  - Minimal-counterexample and structural induction. Try to prove that an extremizer has no holes, no bridges, interval row or column sections, orthogonal convexity, or some other structure that eventually forces a rectangle.
+  - Lattice-specific compressions and local vertex transfers. Derive exact determinant or effective-resistance formulas for moving an exposed vertex into a concavity while preserving cardinality, connectedness, and inducedness.
+  - Grounded-Laplacian determinant comparison. Explore Schur complements, rank-one or low-rank updates, log-determinant inequalities, Gaussian-free-field integral representations, and weighted interpolations between shapes.
+  - Heat-trace or spectral-zeta comparison. Seek a valid rearrangement inequality strong enough to integrate to the determinant, while explicitly testing whether pointwise heat-trace domination is even true.
+  - Planar methods. Explore dual spanning trees, deletion-contraction in the primal and dual, the Temperley bijection, Kasteleyn determinants, dimers, electrical networks, and face-by-face transformations, with explicit treatment of holes and bridges.
+  - Uniform-spanning-tree and random-walk methods. Explore Wilson and Aldous-Broder, transfer currents, loop-erased random walk, and a sharp extension of Tapp's multiplier and escape-probability framework.
+  - Graphic-matroid and tree-polynomial methods. Explore basis-generating polynomials, strong log-concavity, negative dependence, injections between spanning-tree sets, and lattice-aware edge-exchange maps.
+  - Extremal graph theory constrained by the lattice. Explore degree sequences, planar embeddings, block decompositions, and bounds that exploit lattice geometry rather than merely maximum degree.
+  - Exact computation for discovery and falsification. Enumerate small lattice animals up to translation and lattice symmetry, compute \(\tau\) by exact integer determinants, test proposed local moves, and locate the first failure of every candidate sublemma.
+
+Regard this as a menu of independent research programs, not as an indication that one route is intended. Sustain several mutually incompatible proof architectures over multiple rounds.
+
+Two especially clean possible endgames are:
+  1. Construct a finite sequence of shape operations that preserves the admissible class, never lowers \(\tau\), is strictly improving away from a square, and terminates at \(Q_n\).
+  2. Prove a direct determinant or tree-count inequality valid for every admissible \(S\), with equality precisely at \(Q_n\).
+
+Any other fully rigorous architecture is equally valid.
+
+Keep a live research ledger indexed by genuine mathematical mechanism. Each entry should record:
+  - the key statement in fully quantified form;
+  - the exact role that statement would play in a complete proof;
+  - every hypothesis on which it depends;
+  - exact computational experiments already run;
+  - counterexamples to natural stronger versions;
+  - the narrowest unresolved step;
+  - a status tag such as active, blocked, disproved, or merged.
+
+Classify routes by mathematical content rather than cosmetic differences in presentation. When too many agents cluster around one idea, move some of them to neglected directions. Elegance of a reduction is not evidence of completion: a route that merely renames the main difficulty as a “compression theorem,” “rearrangement principle,” or “extremal-domain lemma” has made little progress until that statement is proved. If a program reaches a missing lemma essentially as hard as the original theorem, freeze that program. Resume it only after a new invariant, construction, exact identity, or induction mechanism appears.
+
+Delay cross-fertilization until independently developed routes are mature enough that their actual advantages and defects are visible. Demand mathematical artifacts from every agent: complete lemma proofs, exact formulas, determinant quotients, resistance estimates, explicit tree maps, certified counterexamples to subsidiary claims, or finite certificates that another agent can check. Discard vague progress summaries, unsupported confidence, continuum analogies with no finite discretization, and assertions that a global compatibility step is automatic.
+
+All computational evidence used in reasoning must be exact. Suitable tools include fraction-free Bareiss elimination, symbolic determinants, and independently reproduced integer Matrix-Tree calculations. Use computation to reveal patterns and destroy false claims, not as a substitute for the uniform proof. Archive the coordinates and exact tree counts of every shape that refutes a proposed local rule.
+
+ADVERSARIAL AUDIT REQUIREMENTS
+
+Maintain dedicated skeptical review throughout the search. Every prospective proof must survive checks for the following errors:
+  - confusing a vertex set in \(\mathbb Z^2\) with a polyomino made of unit cells, thereby shifting the graph or miscounting vertices, faces, or boundary;
+  - inferring a tree-count comparison from boundary size or edge count when the graphs are not nested;
+  - invoking Rayleigh monotonicity without a valid common network and an actual conductance increase;
+  - using a vertex relocation that changes cardinality, breaks connectedness, fails to produce an induced subgraph, leaves an isolated component, or has no well-founded termination measure;
+  - comparing cofactors based on inconsistent roots or vertex identifications;
+  - dropping the Laplacian zero mode, the Matrix-Tree normalization, or a sign in a determinant or heat-kernel integral;
+  - asserting coordinatewise eigenvalue order or spectral majorization rather than proving it;
+  - using planar duality while ignoring bridges, dual loops, parallel dual edges, holes, the unbounded face, or disconnected collections of faces;
+  - proposing a combinatorial tree map without a complete proof of well-definedness and of injectivity or surjectivity as required;
+  - establishing weak monotonicity but leaving unexplained nonsquare equality cases;
+  - replacing the target by an equivalent “domain monotonicity,” “compression,” or “entropy” assertion and treating that assertion as known;
+  - using an asymptotic expansion to decide finite changes whose logarithmic gain can stay bounded;
+  - relying on computed positivity without a symbolic estimate uniform in \(n\).
+
+Every proposed geometric move must come with a full certificate containing:
+  1. its precise definition on lattice vertex sets;
+  2. preservation of \(|S|\) and of the induced-subgraph interpretation;
+  3. preservation of connectedness, or a complete analysis of any exceptional case;
+  4. an exact formula for the resulting tree-count ratio or difference;
+  5. a proof of its sign in every allowed configuration;
+  6. the full characterization of equality;
+  7. a well-founded quantity that guarantees termination;
+  8. proof that terminal configurations are exactly the squares, or a justified final passage to the established rectangular theorem.
+
+Every determinant, spectral, or heat-kernel route must supply:
+  1. the precise matrices or operators;
+  2. a common ambient space, or a rigorous embedding or intertwining construction;
+  3. correct handling of the zero eigenvalue and all normalization factors;
+  4. a proved Loewner, majorization, trace, or integral comparison with the needed orientation;
+  5. convergence and endpoint estimates for all integral formulas;
+  6. equality conditions propagated through every step.
+
+The coordinating agent should repeatedly combine results, attack them, redirect effort, and initiate further rounds. A failed opening round is not a stopping condition. Once a serious lemma emerges, send independent agents to seek separate proofs, construct exact counterexamples, analyze equality, and test whether the lemma merely restates the target. Retain multiple distinct routes until one closes the entire argument.
+
+Before endorsing a proof, commission a clean-room review by agents who did not build it. They must reconstruct the dependency graph, verify citations and algebra, test local assertions on exact small examples, and actively try to break the proof. Correct all defects and repeat this review until no gap remains.
+
+FINAL-ANSWER REQUIREMENTS
+
+Return a self-contained, publication-quality mathematical proof, not a research diary. The final response must:
+  - state the theorem precisely;
+  - define all notation;
+  - state and prove every new lemma in dependency order;
+  - identify precisely which results are cited from the two supplied papers or standard literature;
+  - prove the inequality for every \(n\ge1\);
+  - separately prove the equality characterization;
+  - include exact finite verification only where genuinely needed for finitely many base cases;
+  - contain no unsupported “clearly,” “routine,” or “by symmetry” at a substantive step;
+  - contain no appeal to the multiagent process, numerical evidence, or the premise that a proof exists.
+
+Failure of the current collection of ideas is not a reason to terminate. Start additional rounds and revisit frozen routes only when a substantively new device appears. Deliver the main answer only after a complete argument has passed the independent audit.
+
+If a nonnegotiable execution limit interrupts the investigation, never disguise a conjectural chain as a proof. Report only rigorously established lemmas, exact failures of attempted routes, and a single precisely formulated outstanding obstacle, all clearly marked incomplete. This is an emergency fallback, not a chosen endpoint.
+
+Allocate no less than eight hours of sustained search before considering termination. Internet lookup is permitted for the two supplied papers, routine background, and standard named results. Do not use web search to hunt for a preexisting solution to this exact benchmark, and do not substitute an “open problem” report for the requested investigation.</code></pre>
+    </div>
+  </section>
+
+  <section
+    class="clickable-proof"
+    id="follow-up-research-prompt"
+    aria-labelledby="follow-up-research-prompt-heading"
+  >
+    <h3 class="clickable-proof-heading" id="follow-up-research-prompt-heading">
+      <button
+        type="button"
+        class="clickable-proof-toggle"
+        aria-expanded="false"
+        aria-controls="follow-up-research-prompt-panel"
+        data-disclosure-target="follow-up-research-prompt-panel"
+      >
+        <span>Follow-up research prompt</span>
+      </button>
+    </h3>
+    <div
+      class="clickable-proof-panel"
+      id="follow-up-research-prompt-panel"
+      role="region"
+      aria-labelledby="follow-up-research-prompt-heading"
+      hidden
+    >
+      <pre class="prompt-transcript"><code>Please build upon these initial results and resolve the conjecture. Aim for a breakthrough and consider a diverse set of approaches, not limited by previous work. Please try for at least 8 hours before returning an incomplete result.</code></pre>
+    </div>
+  </section>
+
+  <p>I am deeply grateful to <a href="https://sloan.nietert.me/">Sloan Nietert</a> for many helpful suggestions and insightful discussions. I also thank him for collaborating with me on the prompting strategy for this problem and, in particular, for his “breakthrough” prompt.</p>
+  <p><strong>Final verification (August 22, 2026).</strong> The square-maximality theorem as stated here for arbitrary finite square-lattice subgraphs, together with its equality characterization and complete proof chain, has been formalized in Lean 4 and checked by the Lean kernel. The formalization and its reproducible trust audit are available in the <a href="https://github.com/novou/square-maximality-formalization">public repository</a>. I also completed a paper-to-Lean specification audit matching the definitions, hypotheses, intermediate results, and conclusions in the formalization to the mathematical claims in this manuscript.</p>
+  <p><strong>Palomar registration (August 23, 2026).</strong> The Lean verification has been registered in the <a href="https://palomar-registry.org/entry.html?id=PALOMAR-2026-08-23-000003">Palomar Registry</a> at a fixed commit of the public <a href="https://github.com/novou/square-maximality-palomar">submission repository</a>. The registration metadata records the role of the model and the subsequent human and kernel-level checks.</p>
+</section>
+<section class="references" aria-labelledby="references-heading">
+  <h2 id="references-heading">References</h2>
+  <ol>
+    <li id="ref-bp93"><span class="ref-label">[BP93]</span> Robert Burton and Robin Pemantle. Local characteristics, entropy and limit theorems for spanning trees and domino tilings via transfer-impedances. <em>The Annals of Probability</em>, 21(3):1329–1371, 1993. <a href="https://doi.org/10.1214/aop/1176989121">doi:10.1214/aop/1176989121</a>.</li>
+    <li id="ref-chu99"><span class="ref-label">[Chu99]</span> Fan R. K. Chung. Spanning trees in subgraphs of lattices. In <em>Applications of Curves over Finite Fields</em>, volume 245 of <em>Contemporary Mathematics</em>, pages 201–219. American Mathematical Society, 1999. <a href="https://doi.org/10.1090/conm/245/03734">doi:10.1090/conm/245/03734</a>.</li>
+    <li id="ref-kir47"><span class="ref-label">[Kir47]</span> Gustav Kirchhoff. Ueber die Auflösung der Gleichungen, auf welche man bei der Untersuchung der linearen Vertheilung galvanischer Ströme geführt wird. <em>Annalen der Physik</em>, 148(12):497–508, 1847. <a href="https://doi.org/10.1002/andp.18471481202">doi:10.1002/andp.18471481202</a>.</li>
+    <li id="ref-ptf22"><span class="ref-label">[PTF22]</span> Ariel D. Procaccia and Jamie Tucker-Foltz. Compact redistricting plans have many spanning trees. In <em>Proceedings of the 2022 Annual ACM-SIAM Symposium on Discrete Algorithms</em>, pages 3754–3771. SIAM, 2022. <a href="https://doi.org/10.1137/1.9781611977073.148">doi:10.1137/1.9781611977073.148</a>.</li>
+    <li id="ref-sw00"><span class="ref-label">[SW00]</span> Robert Shrock and F. Y. Wu. Spanning trees on graphs and lattices in \(d\) dimensions. <em>Journal of Physics A: Mathematical and General</em>, 33(21):3881–3902, 2000. <a href="https://doi.org/10.1088/0305-4470/33/21/303">doi:10.1088/0305-4470/33/21/303</a>.</li>
+    <li id="ref-swa10"><span class="ref-label">[Swa10]</span> Konrad J. Swanepoel. Comment on “Number of spanning trees in a grid.” <a href="https://mathoverflow.net/questions/8497/number-of-spanning-trees-in-a-grid">MathOverflow</a>, January 7, 2010.</li>
+    <li id="ref-tap24"><span class="ref-label">[Tap24]</span> Kristopher Tapp. Spanning tree bounds for grid graphs. <em>The Electronic Journal of Combinatorics</em>, 31(1):P1.26, 2024. <a href="https://doi.org/10.37236/12130">doi:10.37236/12130</a>.</li>
+    <li id="ref-zha26a"><span class="ref-label">[Zha26a]</span> Jiechen Zhang. The balancing theorem for spanning trees of rectangular grid graphs. <em>arXiv preprint arXiv:2605.23773</em>, 2026. <a href="https://arxiv.org/abs/2605.23773">arXiv:2605.23773</a>.</li>
+    <li id="ref-zha26b"><span class="ref-label">[Zha26b]</span> Jiechen Zhang. Extremal spanning trees in product grid graphs. <em>arXiv preprint arXiv:2606.24016</em>, 2026. <a href="https://arxiv.org/abs/2606.24016">arXiv:2606.24016</a>.</li>
+  </ol>
+</section>
+    </article>
+  </main>
+
+  <a class="back-to-top" href="#top" aria-label="Back to top" hidden>Top</a>
+</body>
+</html>

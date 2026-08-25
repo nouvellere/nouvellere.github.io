@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Threshold Rules for the Classical Prophet Inequality</title>
+  <meta
+    name="description"
+    content="Develops the basic threshold/surplus decomposition and fixed-threshold guarantees for the classical prophet inequality."
+  />
+  <link rel="canonical" href="https://uovou.me/notes/prophet-inequality/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://uovou.me/notes/prophet-inequality/" />
+  <meta
+    property="og:title"
+    content="Threshold Rules for the Classical Prophet Inequality"
+  />
+  <meta
+    property="og:description"
+    content="Develops the basic threshold/surplus decomposition and fixed-threshold guarantees for the classical prophet inequality."
+  />
+  <meta name="twitter:card" content="summary" />
+  <meta
+    name="twitter:title"
+    content="Threshold Rules for the Classical Prophet Inequality"
+  />
+  <meta
+    name="twitter:description"
+    content="Develops the basic threshold/surplus decomposition and fixed-threshold guarantees for the classical prophet inequality."
+  />
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+  <link rel="alternate icon" href="/assets/favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="/assets/styles.css" />
+  <script defer src="/assets/mathjax-config.js"></script>
+  <script
+    defer
+    src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-chtml.js"
+  ></script>
+  <script defer src="/assets/site.js"></script>
+</head>
+<body id="top">
+  <div class="mondrian-bg" aria-hidden="true"></div>
+  <main class="page note-page">
+    <nav class="note-nav" aria-label="Site navigation">
+      <a href="/notes/">Notes</a>
+      <a href="https://arxiv.org/pdf/2605.19871" target="_blank" rel="noopener">PDF</a>
+    </nav>
+
+    <article class="note-article">
+      <header class="note-header">
+        <h1>Threshold Rules for the Classical Prophet Inequality</h1>
+        <p>Jiechen Zhang</p>
+        <p>May 2026</p>
+      </header>
+
+      <h2>Problem setting</h2>
+
+      <p>
+        Let \(X_1,\ldots,X_n\) be independent nonnegative random variables, and let
+        \(\M:=\max_{1\le i\le n}X_i\) denote the prophet's payoff. The classical prophet
+        inequality is usually attributed to Krengel and Sucheston, who proved that there
+        exists a nonanticipating stopping rule with expected payoff at least one half of
+        \(\E[\M]\)
+        <span class="citation">[<a href="#ref-ks77">KS77</a>, <a href="#ref-ks78">KS78</a>]</span>.
+        The sharp constant \(1/2\) is often attributed to Garling in this early line of
+        work. Samuel-Cahn later showed that the same guarantee can be achieved by a
+        single deterministic threshold rule
+        <span class="citation">[<a href="#ref-sc84">SC84</a>]</span>.
+      </p>
+
+      <p>
+        We use the notation
+      </p>
+
+      <div class="math-block">
+        \[
+        F_i(x):=\Prob(X_i\le x),
+        \qquad
+        F(x):=\prod_{i=1}^n F_i(x)=\Prob(\M\le x).
+        \]
+      </div>
+
+      <p>For a deterministic threshold \(\tau\ge 0\), define</p>
+
+      <div class="math-block">
+        \[
+        p(\tau):=\Prob(\M>\tau),
+        \qquad
+        R(\tau):=\sum_{i=1}^n \E[(X_i-\tau)^+].
+        \]
+      </div>
+
+      <p>
+        Throughout, we first assume that ties occur with probability zero; the general
+        case follows by independent infinitesimal tie-breaking perturbations.
+      </p>
+
+      <h2>A common threshold decomposition</h2>
+
+      <p>
+        Let \(\tau\ge 0\) be a threshold, possibly random, independent of
+        \(X_1,\ldots,X_n\). The algorithm stops at the first index \(i\) such that
+        \(X_i>\tau\). Define
+      </p>
+
+      <div class="math-block">
+        \[
+        I_i:=\mathbf{1}\{X_i>\tau\}\prod_{j&lt;i}\mathbf{1}\{X_j\le \tau\},
+        \qquad
+        \ALG:=\sum_{i=1}^n X_iI_i.
+        \]
+      </div>
+
+      <p>
+        Since \(I_i=1\) implies \(X_i>\tau\), we have
+        \(X_iI_i=\tau I_i+(X_i-\tau)^+I_i\). Summing over \(i\) and using
+        \(\sum_i I_i=\mathbf{1}\{\M>\tau\}\) gives
+      </p>
+
+      <div class="math-block">
+        \[
+        \begin{aligned}
+        \E[\ALG]
+        &amp;=
+        \underbrace{\E[\tau\mathbf{1}\{\M>\tau\}]}_{\text{threshold part}}
+        +
+        \underbrace{\E\left[\sum_i (X_i-\tau)^+I_i\right]}_{\text{surplus part}}.
+        \end{aligned}
+        \tag{1}\label{eq:decomposition}
+        \]
+      </div>
+
+      <p>
+        This threshold/surplus decomposition reveals the central tradeoff: the
+        threshold part benefits from a larger value of \(\tau\) on the event
+        \(\{\M>\tau\}\), while the surplus part depends on how much value remains
+        above \(\tau\) and on the probability of reaching the corresponding item.
+        All threshold rules below use the same decomposition; they differ only in
+        how the surplus term is certified.
+      </p>
+
+      <h2>Deterministic thresholds</h2>
+
+      <p>
+        Assume in this paragraph that \(\tau\) is deterministic. Conditioning on whether
+        the algorithm reaches item \(i\), independence gives
+      </p>
+
+      <div class="math-block">
+        \[
+        \E[\ALG]
+        =
+        p(\tau)\tau+
+        \sum_{i=1}^n
+        \left(\prod_{j&lt;i}F_j(\tau)\right)
+        \E[(X_i-\tau)^+].
+        \]
+      </div>
+
+      <p>Since</p>
+
+      <div class="math-block">
+        \[
+        \prod_{j&lt;i}F_j(\tau)
+        \ge
+        \prod_{j=1}^n F_j(\tau)
+        =
+        F(\tau)
+        =
+        1-p(\tau),
+        \]
+      </div>
+
+      <p>we obtain the deterministic surplus certificate</p>
+
+      <div class="math-block">
+        \[
+        \E[\ALG]
+        \ge
+        p(\tau)\tau+(1-p(\tau))R(\tau).
+        \tag{2}\label{eq:det-certificate}
+        \]
+      </div>
+
+      <p>Moreover,</p>
+
+      <div class="math-block">
+        \[
+        R(\tau)
+        =
+        \sum_{i=1}^n\E[(X_i-\tau)^+]
+        \ge
+        \E[(\M-\tau)^+]
+        \ge
+        \E[\M]-\tau.
+        \]
+      </div>
+
+      <p>Therefore</p>
+
+      <div class="math-block">
+        \[
+        \E[\ALG]
+        \ge
+        p(\tau)\tau+(1-p(\tau))(\E[\M]-\tau).
+        \]
+      </div>
+
+      <p>Equivalently,</p>
+
+      <div class="math-block">
+        \[
+        \E[\ALG]
+        \ge
+        \frac12\E[\M]
+        +
+        (1-2p(\tau))\left(\frac12\E[\M]-\tau\right).
+        \tag{3}\label{eq:median-halfmean-certificate}
+        \]
+      </div>
+
+      <h3>Median and half-mean thresholds</h3>
+
+      <p>
+        Equation \(\eqref{eq:median-halfmean-certificate}\) immediately gives two
+        standard choices. If \(\tau_{\mathrm{med}}\) is a median threshold of \(\M\)
+        <span class="citation">[<a href="#ref-sc84">SC84</a>]</span>, chosen so that
+      </p>
+
+      <div class="math-block">
+        \[
+        p(\tau_{\mathrm{med}})
+        =
+        \Prob(\M>\tau_{\mathrm{med}})
+        =
+        \frac12,
+        \]
+      </div>
+
+      <p>
+        then the first factor in \(\eqref{eq:median-halfmean-certificate}\) vanishes.
+        Likewise, for the half-mean threshold
+        <span class="citation">[<a href="#ref-wit95">Wit95</a>, <a href="#ref-kw12">KW12</a>]</span>,
+      </p>
+
+      <div class="math-block">
+        \[
+        \tau=\frac12\E[\M],
+        \]
+      </div>
+
+      <p>
+        the second factor vanishes. Either threshold satisfies
+        \(\E[\ALG]\ge \frac12\E[\M]\).
+      </p>
+
+      <p>
+        More generally, every deterministic threshold between \(\tau_{\mathrm{med}}\)
+        and \(\frac12\E[\M]\) also works. Indeed, since \(p(\tau)\) is nonincreasing in
+        \(\tau\), the two factors \(1-2p(\tau)\) and \(\frac12\E[\M]-\tau\) have the
+        same sign throughout this interval. Therefore
+      </p>
+
+      <div class="math-block">
+        \[
+        (1-2p(\tau))\left(\frac12\E[\M]-\tau\right)\ge 0,
+        \]
+      </div>
+
+      <p>and hence \(\E[\ALG]\ge \frac12\E[\M]\).</p>
+
+      <h3>Balanced surplus threshold</h3>
+
+      <p>
+        Another useful deterministic threshold <span class="citation">[<a href="#ref-sc84">SC84</a>]</span> is the unique fixed point \(\tau^\star\)
+        of
+      </p>
+
+      <div class="math-block">
+        \[
+        \tau^\star
+        =
+        R(\tau^\star)
+        =
+        \sum_{i=1}^n \E[(X_i-\tau^\star)^+].
+        \]
+      </div>
+
+      <p>
+        Indeed, \(R\) is continuous and nonincreasing,
+        with \(R(0)=\sum_{i=1}^n \E[X_i]\) and \(R(\tau)\to 0\)
+        as \(\tau\to\infty\). Moreover, \(R(\tau)-\tau\) is
+        strictly decreasing: if \(0 \le s < t\),
+        then \(R(t)-t\le R(s)-t < R(s)-s\).
+        Hence \(R(\tau)-\tau\) has exactly one zero.
+      </p>
+
+      <p>Using \(\eqref{eq:det-certificate}\),</p>
+
+      <div class="math-block">
+        \[
+        \E[\ALG]
+        \ge
+        p(\tau^\star)\tau^\star+(1-p(\tau^\star))R(\tau^\star)
+        =
+        \tau^\star.
+        \]
+      </div>
+
+      <p>On the other hand,</p>
+
+      <div class="math-block">
+        \[
+        \E[\M]
+        \le
+        \tau^\star+\E[(\M-\tau^\star)^+]
+        \le
+        \tau^\star+\sum_{i=1}^n\E[(X_i-\tau^\star)^+]
+        =
+        2\tau^\star.
+        \]
+      </div>
+
+      <p>Thus \(\E[\ALG]\ge \tau^\star\ge \frac12\E[\M]\).</p>
+
+      <p>
+        There is also a smaller prophet-surplus fixed point \(\widehat\tau\)
+        defined by
+      </p>
+
+      <div class="math-block">
+        \[
+        \widehat\tau=\E[(\M-\widehat\tau)^+].
+        \]
+      </div>
+
+      <p>
+        It is certified by the same argument with \(\E[(\M-\tau)^+]\) in place of
+        \(R(\tau)\). Since \(\E[(\M-\tau)^+]\le R(\tau)\), this threshold is
+        already contained in the coordinate-surplus interval below. Indeed,
+        \(\widehat\tau\ge\frac12\E[\M]\) follows from
+        \(\E[\M]\le\widehat\tau+\E[(\M-\widehat\tau)^+]=2\widehat\tau\), while
+        \(\widehat\tau\le R(\widehat\tau)\) implies
+        \(\widehat\tau\le\tau^\star\) by monotonicity of \(R(\tau)-\tau\).
+      </p>
+
+      <p>The same argument shows that every</p>
+
+      <div class="math-block">
+        \[
+        \tau\in\left[\frac12\E[\M],\tau^\star\right]
+        \]
+      </div>
+
+      <p>
+        also works. Since \(R\) is nonincreasing and
+        \(R(\tau^\star)=\tau^\star\), every such \(\tau\) satisfies
+        \(R(\tau)\ge R(\tau^\star)=\tau^\star\ge \tau\). Therefore
+        \(\eqref{eq:det-certificate}\) gives
+      </p>
+
+      <div class="math-block">
+        \[
+        \E[\ALG]
+        \ge
+        p(\tau)\tau+(1-p(\tau))R(\tau)
+        \ge
+        p(\tau)\tau+(1-p(\tau))\tau
+        =
+        \tau
+        \ge
+        \frac12\E[\M].
+        \]
+      </div>
+
+      <h3>A certified interval of deterministic thresholds</h3>
+
+      <p>
+        Combining the two deterministic families above, the present certificates
+        guarantee the \(1/2\) bound for every
+      </p>
+
+      <div class="math-block">
+        \[
+        \tau\in
+        \left[
+        \min\left\{\tau_{\mathrm{med}},\frac12\E[\M]\right\},
+        \max\left\{\tau_{\mathrm{med}},\tau^\star\right\}
+        \right].
+        \]
+      </div>
+
+      <p>
+        That is, every threshold in this interval satisfies
+        \(\E[\ALG]\ge \frac12\E[\M]\).
+      </p>
+
+      <h2>Random thresholds</h2>
+
+      <h3>A surplus formula for random thresholds</h3>
+
+      <p>
+        Let \(\tau\) have CDF \(G\), independent of \(X_1,\ldots,X_n\). Conditional on
+        \(\tau=t\), the rule becomes the deterministic threshold-\(t\) rule. For item
+        \(i\) to contribute surplus, all previous values must be at most \(t\), while
+        \((X_i-t)^+\) already enforces \(X_i>t\). Thus
+      </p>
+
+      <div class="math-block">
+        \[
+        \E[(X_i-\tau)^+I_i\mid \tau=t]
+        =
+        \E[(X_i-t)^+]\prod_{j&lt;i}F_j(t).
+        \]
+      </div>
+
+      <p>Using the tail identity</p>
+
+      <div class="math-block">
+        \[
+        \E[(X_i-t)^+]=\int_t^\infty (1-F_i(x))\,dx
+        \]
+      </div>
+
+      <p>and applying Tonelli's theorem, we obtain</p>
+
+      <div class="math-block">
+        \[
+        \begin{aligned}
+        \E\left[\sum_{i=1}^n (X_i-\tau)^+I_i\right]
+        &amp;=
+        \int_0^\infty
+        \sum_{i=1}^n
+        \left(\int_t^\infty (1-F_i(x))\,dx\right)
+        \prod_{j&lt;i}F_j(t)\,dG(t) \\
+        &amp;=
+        \int_0^\infty
+        \sum_{i=1}^n (1-F_i(x))
+        \left(
+        \int_0^x \prod_{j&lt;i}F_j(t)\,dG(t)
+        \right)dx.
+        \end{aligned}
+        \tag{4}\label{eq:random-surplus}
+        \]
+      </div>
+
+      <p>This form is useful when the threshold itself is randomized.</p>
+
+      <h3>A randomized analogue of the median threshold</h3>
+
+      <p>
+        The deterministic median threshold chooses a fixed value \(\tau_{\mathrm{med}}\)
+        such that \(\Prob(\M>\tau_{\mathrm{med}})=1/2\). We now consider a randomized
+        analogue of this idea. Let \(\tau\) be an independent draw from the distribution
+        of \(\M\); equivalently, \(\tau\overset{d}{=}\M\), with \(\tau\) independent of the
+        online instance. In the notation above, this means \(G=F\). Under the no-ties
+        assumption, \(\Prob(\M>\tau)=1/2\), so the random threshold has the same
+        median-type exceedance probability as the deterministic median threshold. We
+        prove the averaged surplus bound
+      </p>
+
+      <div class="math-block">
+        \[
+        \E\left[\sum_{i=1}^n (X_i-\tau)^+I_i\right]
+        \ge
+        \frac12\E[(\M-\tau)^+].
+        \tag{5}\label{eq:random-surplus-bound}
+        \]
+      </div>
+
+      <p>
+        Using \(\eqref{eq:random-surplus}\) with \(G=F\), fix \(x\ge 0\). For
+        \(t\le x\),
+      </p>
+
+      <div class="math-block">
+        \[
+        F(t)
+        =
+        \left(\prod_{j&lt;i}F_j(t)\right)
+        \left(\prod_{\ell\ge i}F_\ell(t)\right)
+        \le
+        \left(\prod_{j&lt;i}F_j(t)\right)
+        \left(\prod_{\ell\ge i}F_\ell(x)\right).
+        \]
+      </div>
+
+      <p>Hence</p>
+
+      <div class="math-block">
+        \[
+        \prod_{j&lt;i}F_j(t)
+        \ge
+        \frac{F(t)}{\prod_{\ell\ge i}F_\ell(x)}.
+        \]
+      </div>
+
+      <p>
+        Assuming \(F\) is continuous,<button
+          type="button"
+          class="inline-footnote-trigger"
+          id="fnref-1"
+          aria-label="Toggle footnote about the continuity assumption"
+          aria-expanded="false"
+          aria-controls="fn-window-1"
+          data-disclosure-target="fn-window-1"
+        >1</button> this gives
+      </p>
+
+      <aside
+        class="local-footnote-window"
+        id="fn-window-1"
+        role="note"
+        hidden
+      >
+        <p>
+          The continuity assumption is used here only to evaluate the
+          Lebesgue&ndash;Stieltjes integral. If \(F\) has jumps, then, writing
+          \(\Delta F(a):=F(a)-F(a-)\) and using \(F(0-)=0\) since \(\M\ge0\), one has
+          \(\int_{[0,x]} F(t)\,dF(t)=\frac12 F(x)^2+\frac12\sum_{0\le a\le x}(\Delta F(a))^2\ge \frac12 F(x)^2\).
+          Thus the possible jumps only contribute a nonnegative correction at this
+          point.
+        </p>
+      </aside>
+
+      <div class="math-block">
+        \[
+        \int_0^x \prod_{j&lt;i}F_j(t)\,dF(t)
+        \ge
+        \frac{1}{\prod_{\ell\ge i}F_\ell(x)}
+        \int_0^x F(t)\,dF(t)
+        =
+        \frac{F(x)^2}{2\prod_{\ell\ge i}F_\ell(x)}.
+        \]
+      </div>
+
+      <p>
+        Substituting this lower bound into \(\eqref{eq:random-surplus}\) yields
+      </p>
+
+      <div class="math-block">
+        \[
+        \E\left[\sum_{i=1}^n (X_i-\tau)^+I_i\right]
+        \ge
+        \frac12
+        \int_0^\infty
+        F(x)
+        \sum_{i=1}^n (1-F_i(x))\prod_{j&lt;i}F_j(x)\,dx.
+        \]
+      </div>
+
+      <p>The sum telescopes:</p>
+
+      <div class="math-block">
+        \[
+        \sum_{i=1}^n (1-F_i(x))\prod_{j&lt;i}F_j(x)
+        =
+        1-F(x).
+        \]
+      </div>
+
+      <p>Therefore</p>
+
+      <div class="math-block">
+        \[
+        \E\left[\sum_{i=1}^n (X_i-\tau)^+I_i\right]
+        \ge
+        \frac12\int_0^\infty F(x)(1-F(x))\,dx.
+        \]
+      </div>
+
+      <p>Since \(\M\) and \(\tau\) are independent with common CDF \(F\),</p>
+
+      <div class="math-block">
+        \[
+        \E[(\M-\tau)^+]
+        =
+        \int_0^\infty \Prob(\tau&lt;x&lt;\M)\,dx
+        =
+        \int_0^\infty \Prob[\tau&lt;x]\Prob[\M>x]\,dx
+        =
+        \int_0^\infty F(x)(1-F(x))\,dx.
+        \]
+      </div>
+
+      <p>This proves \(\eqref{eq:random-surplus-bound}\).</p>
+
+      <p>
+        Combining \(\eqref{eq:decomposition}\) and
+        \(\eqref{eq:random-surplus-bound}\),
+      </p>
+
+      <div class="math-block">
+        \[
+        \begin{aligned}
+        \E[\ALG]
+        &amp;\ge
+        \E[\tau\mathbf{1}\{\M>\tau\}]
+        +
+        \frac12\E[(\M-\tau)^+] \\
+        &amp;=
+        \E[\tau\mathbf{1}\{\M>\tau\}]
+        +
+        \frac12\E[(\M-\tau)\mathbf{1}\{\M>\tau\}] \\
+        &amp;=
+        \frac12\E[(\M+\tau)\mathbf{1}\{\M>\tau\}].
+        \end{aligned}
+        \]
+      </div>
+
+      <p>By exchangeability of the i.i.d. pair \((\M,\tau)\) and the no-ties assumption,</p>
+
+      <div class="math-block">
+        \[
+        \E[(\M+\tau)\mathbf{1}\{\M>\tau\}]
+        =
+        \E[(\M+\tau)\mathbf{1}\{\tau>\M\}]
+        =
+        \frac12\E[\M+\tau]
+        =
+        \E[\M].
+        \]
+      </div>
+
+      <p>Thus \(\E[\ALG]\ge \frac12\E[\M]\).</p>
+
+      <section
+        class="clickable-proof"
+        id="alternative-proof-tail-dominance"
+        aria-labelledby="alternative-proof-tail-dominance-heading"
+      >
+        <h2 class="clickable-proof-heading"
+          id="alternative-proof-tail-dominance-heading"
+        >
+          <button
+            type="button"
+            class="clickable-proof-toggle"
+            aria-expanded="false"
+            aria-controls="alternative-proof-tail-dominance-panel"
+            data-disclosure-target="alternative-proof-tail-dominance-panel"
+          >
+            <span>Alternative Proof: Pointwise Tail Dominance</span>
+          </button>
+        </h2>
+
+        <aside
+          class="clickable-proof-panel"
+          id="alternative-proof-tail-dominance-panel"
+          role="note"
+          aria-labelledby="alternative-proof-tail-dominance-heading"
+          hidden
+        >
+          <p>
+            The proof above certifies the randomized analogue through the averaged
+            surplus term. We now give a direct tail certificate in the no-ties case;
+            distributions with atoms are handled by the same independent infinitesimal
+            tie-breaking convention used above. Whenever \(\tau\overset{d}{=}\M\) and
+            \(\tau\) is independent of \(X_1,\ldots,X_n\), for every \(z\ge 0\),
+          </p>
+
+          <div class="math-block">
+            \[
+            \Prob(\ALG>z)\ge \frac12\Prob(\M>z).
+            \tag{8}\label{eq:tail-dominance}
+            \]
+          </div>
+
+          <p>
+            Integrating \(\eqref{eq:tail-dominance}\) over \(z\) recovers
+            \(\E[\ALG]\ge \frac12\E[\M]\). Thus the dominance can be seen pointwise
+            in the tail level \(z\), rather than only after averaging the surplus over
+            the threshold distribution.
+          </p>
+
+          <p>
+            Let \(F\) be the CDF of \(\M\), and fix \(z\ge 0\). On the event
+            \(\{\tau>z\}\), if \(\M>\tau\), then some online value exceeds the
+            threshold; the algorithm accepts a value larger than \(\tau\), and hence
+            larger than \(z\). Since \(\M\) and \(\tau\) are independent and
+            identically distributed, exchangeability and the no-ties assumption give
+          </p>
+
+          <div class="math-block">
+            \[
+            \Prob(\ALG>z,\ \tau>z)
+            \ge
+            \Prob(\M>\tau,\ \tau>z)
+            =
+            \frac12(1-F(z))^2.
+            \]
+          </div>
+
+          <p>
+            It remains to treat \(\{\tau\le z\}\). On \(\{\M>z\}\), let \(I\) be the
+            first index with \(X_I>z\). To represent the independent threshold, write
+            \(\tau=\max_k S_k\), where the \(S_k\)'s are independent draws from the
+            corresponding distributions, independent of the online \(X_k\)'s. Define
+          </p>
+
+          <div class="math-block">
+            \[
+            Y_X:=\max_{j&lt;I}X_j,
+            \qquad
+            Y_S:=\max_{j&lt;I}S_j.
+            \]
+          </div>
+
+          <p>
+            With the empty maximum equal to \(0\), conditional on \(\{I=i\}\) and
+            \(\{\tau\le z\}\), the two collections \((X_j)_{j&lt;i}\) and \((S_j)_{j&lt;i}\)
+            are independent copies, with each corresponding coordinate conditioned to
+            lie at most \(z\). Hence
+            \(\Prob(Y_S\ge Y_X\mid I=i,\tau\le z)\ge \frac12\). Since
+            \(\tau=\max_k S_k\), we also have \(\tau\ge Y_S\). Therefore, conditional on
+            \(\{I=i\}\) and \(\{\tau\le z\}\), with probability at least \(1/2\), we have
+            \(\tau\ge Y_X\). In that case the algorithm does not stop before \(i\), while
+            \(X_i>z\ge\tau\), so it accepts a value larger than \(z\). Therefore
+          </p>
+
+          <div class="math-block">
+            \[
+            \Prob(\ALG>z,\ \tau\le z)
+            \ge
+            \frac12\Prob(\M>z,\ \tau\le z)
+            =
+            \frac12F(z)(1-F(z)).
+            \]
+          </div>
+
+          <p>
+            Adding the two cases gives
+          </p>
+
+          <div class="math-block">
+            \[
+            \Prob(\ALG>z)
+            \ge
+            \frac12(1-F(z))^2+\frac12F(z)(1-F(z))
+            =
+            \frac12(1-F(z)),
+            \]
+          </div>
+
+          <p>
+            which is exactly \(\eqref{eq:tail-dominance}\).
+          </p>
+
+          <p class="proof-credit">
+            This proof was "found" through a prompt to ChatGPT 5.5 Plus, which produced the idea after about four minutes of thinking.
+            The author thanks Pranav Nuti, who later pointed out that a closely
+            related pointwise stochastic-dominance argument appears in Section 5, page
+            12, of Tomer Ezra's
+            <a href="https://arxiv.org/pdf/2409.00559#page=13" target="_blank" rel="noopener">
+              <em>Prophet Inequality from Samples: Is the More the Merrier?</em>
+            </a>.
+          </p>
+        </aside>
+      </section>
+
+      <h3>Other randomized thresholds</h3>
+
+      <p>
+        The argument above also suggests a sufficient condition for other randomized
+        thresholds. Let \(\tau\) have CDF \(G\), independent of \(X_1,\ldots,X_n\).
+        Suppose first that, for every \(i\) and every \(x\ge 0\),
+      </p>
+
+      <div class="math-block">
+        \[
+        \int_0^x \prod_{j&lt;i}F_j(t)\,dG(t)
+        \ge
+        \frac12 F(x)\prod_{j&lt;i}F_j(x).
+        \tag{6}\label{eq:general-random-surplus-certificate}
+        \]
+      </div>
+
+      <p>Then \(\eqref{eq:random-surplus}\) gives</p>
+
+      <div class="math-block">
+        \[
+        \E\left[\sum_{i=1}^n (X_i-\tau)^+I_i\right]
+        \ge
+        \frac12
+        \int_0^\infty
+        F(x)
+        \sum_{i=1}^n (1-F_i(x))\prod_{j&lt;i}F_j(x)\,dx
+        =
+        \frac12\int_0^\infty F(x)(1-F(x))\,dx.
+        \]
+      </div>
+
+      <p>It remains to compare the threshold part. If, in addition,</p>
+
+      <div class="math-block">
+        \[
+        \int_0^\infty t(1-F(t))\,dG(t)
+        \ge
+        \int_0^\infty t(1-F(t))\,dF(t),
+        \tag{7}\label{eq:general-threshold-certificate}
+        \]
+      </div>
+
+      <p>
+        then the two terms in the decomposition are at least the corresponding two terms
+        in the proof above. Hence the same conclusion follows:
+      </p>
+
+      <div class="math-block">
+        \[
+        \E[\ALG]\ge \frac12\E[\M].
+        \]
+      </div>
+
+      <p>
+        Thus any threshold distribution \(G\) satisfying
+        \(\eqref{eq:general-random-surplus-certificate}\) and
+        \(\eqref{eq:general-threshold-certificate}\) is also certified by the same
+        threshold/surplus argument.
+      </p>
+
+      <p>
+        A simple source of additional randomized thresholds comes from convexity. Let
+        \(\tau_0\) be any deterministic threshold already certified above, for example
+        any threshold in the certified deterministic interval. For \(\alpha\in[0,1]\),
+        draw \(\tau\) from the distribution of \(\M\) with probability \(\alpha\), and
+        set \(\tau=\tau_0\) with probability \(1-\alpha\), independently of the online
+        instance. Equivalently, the law of \(\tau\) is the convex combination
+      </p>
+
+      <div class="math-block">
+        \[
+        \alpha F+(1-\alpha)\delta_{\tau_0}.
+        \]
+      </div>
+
+      <p>Since the expected payoff is affine in the law of the independent threshold,</p>
+
+      <div class="math-block">
+        \[
+        \E[\ALG]
+        =
+        \alpha\,\E[\ALG\mid \tau\overset{d}{=}\M]
+        +
+        (1-\alpha)\,\E[\ALG\mid \tau=\tau_0]
+        \ge
+        \frac12\E[\M].
+        \]
+      </div>
+
+      <h3>Implementing the randomized analogue</h3>
+
+      <p>
+        The randomized analogue only requires drawing an independent threshold
+        \(\tau\overset{d}{=}\M\). There are several equivalent ways to implement this.
+      </p>
+
+      <p>
+        First, if we have sample access to each distribution \(D_i\), draw independent
+        samples \(S_i\) from \(D_i\) for \(i=1,\ldots,n\), and set
+      </p>
+
+      <div class="math-block">
+        \[
+        \tau:=\max_i S_i.
+        \]
+      </div>
+
+      <p>Then</p>
+
+      <div class="math-block">
+        \[
+        \tau\overset{d}{=}\max_i X_i=\M,
+        \]
+      </div>
+
+      <p>
+        so this is exactly the sample-max threshold rule
+        <span class="citation">[<a href="#ref-rww20">RWW20</a>]</span>.
+      </p>
+
+      <p>
+        Second, if the CDFs \(F_i\) are known, then the CDF of \(\M\) is
+      </p>
+
+      <div class="math-block">
+        \[
+        F(x)=\prod_{i=1}^n F_i(x).
+        \]
+      </div>
+
+      <p>Draw \(U\) uniformly from \([0,1]\) and set</p>
+
+      <div class="math-block">
+        \[
+        \tau:=F^{-1}(U),
+        \qquad
+        F^{-1}(u):=\inf\{x:F(x)\ge u\}.
+        \]
+      </div>
+
+      <p>Then \(\tau\overset{d}{=}\M\).</p>
+
+      <p>
+        Finally, if an independent simulator for the full instance is available, draw
+        \((\widetilde X_1,\ldots,\widetilde X_n)\) independently and set
+      </p>
+
+      <div class="math-block">
+        \[
+        \tau:=\max_i \widetilde X_i.
+        \]
+      </div>
+
+      <p>
+        If only historical data are available, one may approximate this by drawing
+        uniformly from empirical past maxima. The exact theorem applies whenever the
+        resulting threshold is an independent draw from the distribution of \(\M\).
+      </p>
+
+      <h2>Takeaway</h2>
+
+      <p>
+        The deterministic and randomized threshold rules above are all consequences of
+        the same decomposition
+      </p>
+
+      <div class="math-block">
+        \[
+        \E[\ALG]
+        =
+        \underbrace{\E[\tau\mathbf{1}\{\M>\tau\}]}_{\text{threshold part}}
+        +
+        \underbrace{\E\left[\sum_i (X_i-\tau)^+I_i\right]}_{\text{surplus part}}.
+        \]
+      </div>
+
+      <ul class="note-bullets">
+        <li>
+          For deterministic thresholds, the surplus part is
+          <div class="math-block">
+            \[
+            \sum_{i=1}^n
+            \left(\prod_{j&lt;i}F_j(\tau)\right)
+            \E[(X_i-\tau)^+].
+            \]
+          </div>
+          The factor \(\prod_{j&lt;i}F_j(\tau)\) is the probability that the rule
+          reaches item \(i\), and it is bounded below by
+          \(F(\tau)=\prod_{j=1}^n F_j(\tau)\). This gives the pointwise surplus bound
+          \(\E\left[\sum_i (X_i-\tau)^+I_i\right]\ge F(\tau)R(\tau)\).
+        </li>
+        <li>
+          For randomized thresholds, the same surplus term is averaged over the possible
+          threshold values. After the tail-integral rewriting, it becomes
+          <div class="math-block">
+            \[
+            \int_0^\infty
+            \sum_{i=1}^n (1-F_i(x))
+            \left(
+            \int_0^x \prod_{j&lt;i}F_j(t)\,dG(t)
+            \right)dx.
+            \]
+          </div>
+          Thus the inner quantity \(\int_0^x \prod_{j&lt;i}F_j(t)\,dG(t)\) is the
+          randomized analogue of the deterministic reach probability: it averages the
+          probability of reaching item \(i\) over all threshold values \(t\le x\). The
+          randomized surplus certificate is therefore no longer a pointwise comparison
+          at a single threshold value. Instead, it is a lower bound on the averaged
+          reach term \(\int_0^x \prod_{j&lt;i}F_j(t)\,dG(t)\).
+          For example, one sufficient bound is
+          <div class="math-block">
+            \[
+            \int_0^x \prod_{j&lt;i}F_j(t)\,dG(t)
+            \ge
+            \frac12 F(x)\prod_{j&lt;i}F_j(x).
+            \]
+          </div>
+        </li>
+      </ul>
+
+      <p>
+        The distinction is similar in spirit to the difference between pointwise
+        dominance and integrated dominance conditions: deterministic thresholds compare
+        reach probabilities at one threshold value, while randomized thresholds compare
+        their averages over the threshold distribution.
+      </p>
+
+      <p>
+        This pointwise certificate is what certifies the deterministic threshold rules
+        above, including the median threshold \(\tau_{\mathrm{med}}\), the half-mean
+        threshold \(\frac12\E[\M]\), the balanced surplus threshold \(\tau^\star\), and
+        every threshold in the deterministic interval.
+      </p>
+
+      <p>
+        The randomized analogue \(\tau\overset{d}{=}\M\) is the cleanest averaged
+        certificate, since taking \(G=F\) makes the surplus term telescope and lets the
+        threshold part close by exchangeability. The same viewpoint also certifies any
+        threshold distribution \(G\) satisfying the two sufficient conditions above, as
+        well as convex mixtures of the law of \(\M\) with any certified deterministic
+        threshold.
+      </p>
+
+      <p>
+        Therefore, the median rule, half-mean rule, balanced surplus rule, sample-max
+        rule, and these mixture rules are different ways of certifying the same
+        threshold/surplus tradeoff.
+      </p>
+
+      <section class="references" aria-labelledby="references-heading">
+        <h2 id="references-heading">References</h2>
+        <ol>
+          <li id="ref-ks77">
+            <span class="ref-label">[KS77]</span>
+            Ulrich Krengel and Louis Sucheston.
+            <em>Semiamarts and Finite Values.</em>
+            Bulletin of the American Mathematical Society, 83(4):745-747, 1977.
+          </li>
+          <li id="ref-ks78">
+            <span class="ref-label">[KS78]</span>
+            Ulrich Krengel and Louis Sucheston.
+            <em>On Semiamarts, Amarts, and Processes with Finite Value.</em>
+            Advances in Probability and Related Topics, 4:197-266, Marcel Dekker, 1978.
+          </li>
+          <li id="ref-sc84">
+            <span class="ref-label">[SC84]</span>
+            Ester Samuel-Cahn.
+            <em>Comparison of Threshold Stop Rules and Maximum for Independent Nonnegative
+            Random Variables.</em>
+            The Annals of Probability, 12(4):1213-1216, 1984.
+          </li>
+          <li id="ref-wit95">
+            <span class="ref-label">[Wit95]</span>
+            Rainer Wittmann.
+            <em>Prophet Inequalities for Dependent Random Variables.</em>
+            Stochastics: An International Journal of Probability and Stochastic Processes,
+            52(3-4):283-293, 1995.
+          </li>
+          <li id="ref-kw12">
+            <span class="ref-label">[KW12]</span>
+            Robert Kleinberg and S. Matthew Weinberg.
+            <em>Matroid Prophet Inequalities.</em>
+            Proceedings of the Forty-Fourth Annual ACM Symposium on Theory of Computing,
+            pages 123-136, ACM, 2012.
+          </li>
+          <li id="ref-rww20">
+            <span class="ref-label">[RWW20]</span>
+            Aviad Rubinstein, Jack Z. Wang, and S. Matthew Weinberg.
+            <em>Optimal Single-Choice Prophet Inequalities from Samples.</em>
+            11th Innovations in Theoretical Computer Science Conference, Leibniz
+            International Proceedings in Informatics 151, pages 60:1-60:10, 2020.
+          </li>
+        </ol>
+      </section>
+    </article>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Return to top" hidden>Top</a>
+</body>
+</html>
+

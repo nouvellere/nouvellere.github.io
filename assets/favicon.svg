@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- rounded white square -->
+  <rect x="4" y="4" width="56" height="56" rx="14" fill="#ffffff" stroke="#ececec" stroke-width="1.5"/>
+
+  <!-- top dot -->
+  <path
+    d="M23.3 21.9
+       C24.3 20.8, 26.1 20.6, 27.3 21.4
+       C28.6 22.3, 28.9 24.3, 28.1 25.7
+       C27.2 27.0, 25.2 27.5, 23.8 26.7
+       C22.4 25.9, 22.1 23.3, 23.3 21.9 Z"
+    fill="#111111"
+  />
+
+  <!-- bottom dot -->
+  <path
+    d="M23.5 32.8
+       C24.5 31.7, 26.2 31.5, 27.4 32.3
+       C28.8 33.2, 29.0 35.1, 28.1 36.5
+       C27.2 37.9, 25.3 38.4, 23.9 37.5
+       C22.6 36.7, 22.3 34.2, 23.5 32.8 Z"
+    fill="#111111"
+  />
+
+  <!-- smile -->
+  <path
+    d="M38.5 18.4
+       C44.2 22.8, 44.5 37.6, 38.1 42.0"
+    fill="none"
+    stroke="#111111"
+    stroke-width="4.3"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+
+  <!-- extra wobble line -->
+  <path
+    d="M37.5 19.4
+       C42.2 23.7, 42.3 36.6, 37.4 41.0"
+    fill="none"
+    stroke="#111111"
+    stroke-width="1.15"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    opacity="0.38"
+  />
+</svg>
